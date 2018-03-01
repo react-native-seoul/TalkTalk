@@ -3,7 +3,7 @@ import { AsyncStorage, View, Platform } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
-import Intro from '@screen/Intro';
+import Login from '@screen/Login';
 import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
 import appStore from '@stores/appStore';
@@ -26,16 +26,16 @@ class RootNavigator extends React.Component<any, IState> {
   }
 
   public initPage = async () => {
-    const startPage = 'Intro';
+    const startPage = 'Login';
     console.log('startPage: ' + startPage);
     this.setState({ startPage });
   }
 
   public render() {
     const routeConfig = {
-      Intro: {
-        screen: Intro,
-        path: 'intro',
+      Login: {
+        screen: Login,
+        path: 'login',
       },
       NotFound: {
         screen: NotFound,
