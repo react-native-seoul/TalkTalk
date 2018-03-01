@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import { ratio, bgColor } from '@utils/Styles';
+import { ratio, colors } from '@utils/Styles';
 
 const styles: any = StyleSheet.create({
   wrapper: {
@@ -18,9 +18,19 @@ const styles: any = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  label: {
+    color: colors.blueyGray,
+    marginBottom: 8 * ratio,
+    fontSize: 12 * ratio,
+  },
+  labelFocus: {
+    color: colors.dodgerBlue,
+    marginBottom: 8 * ratio,
+    fontSize: 12 * ratio,
+  },
   input: {
     alignSelf: 'stretch',
-    color: 'rgb(65,77,107)',
+    color: colors.dusk,
     fontSize: 16 * ratio,
     paddingVertical: 22 * ratio,
     paddingHorizontal: 20 * ratio,
@@ -31,10 +41,24 @@ const styles: any = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  inputFocus: {
+    alignSelf: 'stretch',
+    color: colors.dusk,
+    fontSize: 16 * ratio,
+    paddingVertical: 22 * ratio,
+    paddingHorizontal: 20 * ratio,
+    borderWidth: 1,
+    borderColor: colors.dodgerBlue,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
 });
 
 interface ItemProps {
   labelStyle?: Text.propTypes.style;
+  labelStyleFocus?: Text.propTypes.style;
   placeholderTextColor?: string;
 
   isPassword?: boolean;
@@ -51,6 +75,7 @@ interface ItemProps {
 class Shared extends Component<ItemProps, any> {
   private static defaultProps: Partial<ItemProps> = {
     labelStyle: styles.label,
+    labelStyleFocus: styles.labelFocus,
     placeholderTextColor: 'rgb(134,154,183)',
     isPassword: false,
     multiline: false,
@@ -62,6 +87,7 @@ class Shared extends Component<ItemProps, any> {
   constructor(props) {
     super(props);
     this.state = {
+      focused: false,
     };
   }
 
@@ -71,9 +97,10 @@ class Shared extends Component<ItemProps, any> {
         styles.wrapper,
         this.props.style,
       ]}>
+        { this.renderTxtLabel() }
         <TextInput
           style={[
-            styles.input,
+            this.state.focused ? styles.inputFocus : styles.input,
             this.props.inputStyle,
           ]}
           underlineColorAndroid='transparent' // android fix
@@ -82,6 +109,8 @@ class Shared extends Component<ItemProps, any> {
           multiline={this.props.multiline}
           onChangeText={this.props.onTextChanged}
           value={this.props.txt}
+          onFocus={ () => this.setState({ focused: true }) }
+          onBlur={ () => this.setState({ focused: false }) }
           placeholder={this.props.txtHint}
           placeholderTextColor={this.props.placeholderTextColor}
           onSubmitEditing={this.props.onSubmitEditing}
@@ -90,6 +119,17 @@ class Shared extends Component<ItemProps, any> {
         />
       </View>
     );
+  }
+
+  private renderTxtLabel = () => {
+    if (this.props.txtLabel) {
+      return (
+        <Text style={this.state.focused ? this.props.labelStyleFocus : this.props.labelStyle}>
+          {this.props.txtLabel}
+        </Text>
+      );
+    }
+    return null;
   }
 }
 

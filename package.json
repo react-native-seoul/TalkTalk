@@ -33,6 +33,7 @@
     "@types/jest": "^22.1.4",
     "@types/react": "16.0.10",
     "@types/react-native": "0.49.2",
+    "@types/react-navigation": "^1.2.1",
     "apsl-react-native-button": "^3.1.0",
     "babel-jest": "22.2.2",
     "babel-plugin-module-resolver": "^3.1.0",
@@ -93,7 +94,8 @@
       "^@assets(.*)$": "<rootDir>/src/assets$1",
       "^@shared(.*)$": "<rootDir>/src/shared$1",
       "^@app(.*)$": "<rootDir>/src/app$1",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/assetsTransformer.js", "\\.(css|less)$": "<rootDir>/test/assetsTransformer.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/test/assetsTransformer.js"
     },
     "snapshotSerializers": [
       "./node_modules/enzyme-to-json/serializer"

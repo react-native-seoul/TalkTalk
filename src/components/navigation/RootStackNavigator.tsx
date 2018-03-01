@@ -4,6 +4,7 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 import Login from '@screen/Login';
+import Signup from '@screen/Signup';
 import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
 import appStore from '@stores/appStore';
@@ -37,6 +38,10 @@ class RootNavigator extends React.Component<any, IState> {
         screen: Login,
         path: 'login',
       },
+      Signup: {
+        screen: Signup,
+        path: 'signup',
+      },
       NotFound: {
         screen: NotFound,
       },
@@ -49,7 +54,7 @@ class RootNavigator extends React.Component<any, IState> {
       gesturesEnabled: true,
       statusBarStyle: 'light-content',
       transitionConfig: () => ({ screenInterpolator:
-        appStore.$rootNavigatorActionHorizontal
+        appStore.rootNavigatorActionHorizontal
           ? CardStackStyleInterpolator.forHorizontal
           : CardStackStyleInterpolator.forVertical,
       }),

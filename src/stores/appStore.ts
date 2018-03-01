@@ -10,49 +10,71 @@ import 'moment/locale/ja';
 // import 'moment/locale/id';
 
 class ObservableListStore {
-  @observable
-  private rootNavigator: any;
-  @observable
-  private rootNavigatorActionHorizontal: boolean;
-  @observable private rootNavigatorParams: object;
-  @observable private user: User;
+  @observable private _rootNavigator: any;
+  @observable private _rootNavigatorPrevParams: object;
+  @observable private _rootNavigatorParams: object;
+  @observable private _rootNavigatorActionHorizontal: boolean;
+  @observable private _user: User;
 
   constructor() {
-    this.rootNavigatorActionHorizontal = false;
-    this.rootNavigatorParams = {};
-    this.user = new User();
+    this._rootNavigator = null;
+    this._rootNavigatorActionHorizontal = true;
+    this._rootNavigatorPrevParams = null;
+    this._rootNavigatorParams = null;
+    this._user = new User();
   }
 
-  public get $rootNavigator(): any  {
-    return this.rootNavigator;
+  public get rootNavigator(): any {
+    return this._rootNavigator;
   }
 
-  public set $rootNavigator(value: any ) {
-    this.rootNavigator = value;
+  public set rootNavigator(value: any) {
+    this._rootNavigator = value;
   }
 
-  public get $rootNavigatorActionHorizontal(): boolean  {
-    return this.rootNavigatorActionHorizontal;
+  public get rootNavigatorActionHorizontal(): boolean {
+    return this._rootNavigatorActionHorizontal;
   }
 
-  public set $rootNavigatorActionHorizontal(value: boolean ) {
-    this.rootNavigatorActionHorizontal = value;
+  public set rootNavigatorActionHorizontal(value: boolean) {
+    this._rootNavigatorActionHorizontal = value;
   }
 
-  public get $rootNavigatorParams(): any  {
-    return this.rootNavigatorParams;
+  public get rootNavigatorParams(): object {
+    return this._rootNavigatorParams;
   }
 
-  public set $rootNavigatorParams(value: any ) {
-    this.rootNavigatorParams = value;
+  public set rootNavigatorParams(value: object) {
+    this._rootNavigatorParams = value;
   }
 
-  public get $user(): User {
-    return this.user;
+  public get user(): User {
+    return this._user;
   }
 
-  public set $user(value: User) {
-    this.user = value;
+  public set user(value: User) {
+    this._user = value;
+  }
+
+  public navigateRoot = (slideHorizontal: boolean, routeName: string, params?: object) => {
+    this.rootNavigatorActionHorizontal = slideHorizontal;
+
+    if (this.rootNavigatorParams) {
+      this.rootNavigatorPrevParams = this._rootNavigatorParams;
+      this.rootNavigatorParams = params;
+    }
+    this.rootNavigator.navigate(routeName);
+  }
+
+  public navigateRootBack = () => {
+    console.log('navigateRootBack');
+    this.rootNavigatorParams = this.rootNavigatorPrevParams;
+    this.rootNavigatorPrevParams = null;
+    this.rootNavigator.goBack(null);
+  }
+
+  public navigateRootReset = (resetAction) => {
+    this.rootNavigator.dispatch(resetAction);
   }
 }
 

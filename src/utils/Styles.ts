@@ -12,6 +12,7 @@ interface Icolors {
   dusk: string;
   blueyGray: string;
   cloudyBlue: string;
+  paleGray: string;
 }
 
 export const colors: Icolors = {
@@ -19,4 +20,5 @@ export const colors: Icolors = {
   dusk: 'rgb(65,77,107)',
   blueyGray: 'rgb(134,154,183)',
   cloudyBlue: 'rgb(175,194,219)',
+  paleGray: 'rgb(233,237,244)',
 };
