@@ -5,6 +5,7 @@ import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/Car
 
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
+import FindPw from '@screen/FindPw';
 import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
 import appStore from '@stores/appStore';
@@ -41,6 +42,10 @@ class RootNavigator extends React.Component<any, IState> {
       Signup: {
         screen: Signup,
         path: 'signup',
+      },
+      FindPw: {
+        screen: FindPw,
+        padth: 'findpw',
       },
       NotFound: {
         screen: NotFound,

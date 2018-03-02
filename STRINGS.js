@@ -9,9 +9,11 @@ const strings = new LocalizedStrings({
     SIGNUP: 'SIGN UP',
     LOGIN: 'LOGIN',
     FORGOT_PW: 'Forgot password?',
+    FIND_PW: 'FIND PASSWORD',
     NAME: 'NAME',
     STATUS_MSG: 'Status message',
     REGISTER: 'REGISTER',
+    SEND_LINK: 'Send Link',
   },
   kr: {
     HELLO: '안녕하세요',
@@ -21,9 +23,11 @@ const strings = new LocalizedStrings({
     SIGNUP: '회원가입',
     LOGIN: '로그인',
     FORGOT_PW: '비밀번호를 잊어버리셨나요?',
+    FIND_PW: '비밀번호 찾기',
     NAME: '이름',
     STATUS_MSG: '상태메세지',
     REGISTER: '가입',
+    SEND_LINK: '링크 보내기',
   },
 });
 

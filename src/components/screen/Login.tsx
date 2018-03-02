@@ -201,8 +201,8 @@ class Screen extends Component<any, any> {
     appStore.navigateRoot(true, 'Signup');
     // this.props.navigation.navigate('Signup');
   }
-
   private goToForgotPw = () => {
+    appStore.navigateRoot(true, 'FindPw');
     console.log('goToForgotPw');
   }
 
