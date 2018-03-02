@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+import { firebaseConfig } from '@config';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 // import { observer } from 'mobx-react/native';
 import React from 'react';
@@ -8,6 +10,8 @@ import RootStackNavigator from '@navigation/RootStackNavigator';
 // import { ratio } from '@utils/Styles';
 // import { ICONS } from '@utils/Icons';
 // import { setLocale } from '@utils/Localizations';
+
+firebase.initializeApp(firebaseConfig);
 
 // @observer
 class App extends React.Component {

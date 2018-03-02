@@ -20,6 +20,7 @@
         "@stores": "./src/stores",
         "@utils": "./src/utils",
         "@STRINGS": "./STRINGS",
+        "@config": "./config",
         "@BaseStyles": "./src/BaseStyles",
         "@assets": "./assets",
         "@shared": "./src/components/shared",

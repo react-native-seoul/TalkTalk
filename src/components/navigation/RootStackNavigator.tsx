@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React from 'react';
 import { AsyncStorage, View, Platform } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
@@ -24,11 +25,17 @@ class RootNavigator extends React.Component<any, IState> {
   }
 
   public componentDidMount() {
-    this.initPage();
+    firebase.auth().onAuthStateChanged(async (user) => {
+      let startPage: string = 'Login';
+      if (user) {
+        startPage = 'Signup';
+      }
+
+      this.initPage(startPage);
+    });
   }
 
-  public initPage = async () => {
-    const startPage = 'Login';
+  public initPage = async (startPage: string) => {
     console.log('startPage: ' + startPage);
     this.setState({ startPage });
   }

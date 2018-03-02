@@ -18,6 +18,7 @@
     "build:android": "react-native bundle --entry-file index.android.js --platform android --dev false --bundle-output android/main.jsbundle --assets-dest android"
   },
   "dependencies": {
+    "firebase": "^4.10.1",
     "mobx": "^3.6.1",
     "mobx-react": "^4.4.2",
     "moment": "^2.20.1",
