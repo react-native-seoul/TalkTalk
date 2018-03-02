@@ -4,6 +4,7 @@ import { AsyncStorage, View, Platform } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
+import MainTabNavigator from './MainTabNavigator';
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
 import FindPw from '@screen/FindPw';
@@ -26,9 +27,9 @@ class RootNavigator extends React.Component<any, IState> {
 
   public componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
-      let startPage: string = 'Login';
+      let startPage: string = 'Main';
       if (user) {
-        startPage = 'Signup';
+        startPage = 'Login';
       }
 
       this.initPage(startPage);
@@ -42,21 +43,11 @@ class RootNavigator extends React.Component<any, IState> {
 
   public render() {
     const routeConfig = {
-      Login: {
-        screen: Login,
-        path: 'login',
-      },
-      Signup: {
-        screen: Signup,
-        path: 'signup',
-      },
-      FindPw: {
-        screen: FindPw,
-        padth: 'findpw',
-      },
-      NotFound: {
-        screen: NotFound,
-      },
+      Login: { screen: Login },
+      Signup: { screen: Signup },
+      FindPw: { screen: FindPw },
+      Main: { screen: MainTabNavigator },
+      NotFound: { screen: NotFound },
     };
 
     const navigatorConfig = {

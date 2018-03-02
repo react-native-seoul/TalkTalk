@@ -14,6 +14,8 @@ const strings = new LocalizedStrings({
     STATUS_MSG: 'Status message',
     REGISTER: 'REGISTER',
     SEND_LINK: 'Send Link',
+    FRIEND: 'Friend',
+    MESSAGE: 'Message',
   },
   kr: {
     HELLO: '안녕하세요',
@@ -28,6 +30,8 @@ const strings = new LocalizedStrings({
     STATUS_MSG: '상태메세지',
     REGISTER: '가입',
     SEND_LINK: '링크 보내기',
+    FRIEND: '친구',
+    MESSAGE: '메세지',
   },
 });
 
