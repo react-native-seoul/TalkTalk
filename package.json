@@ -26,6 +26,7 @@
     "react-native": "0.53.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^0.2.3",
+    "react-native-splash-screen": "^3.0.6",
     "react-native-status-bar-height": "^2.0.0",
     "react-navigation": "^1.2.1",
     "serializr": "^1.1.14"

@@ -1,3 +1,4 @@
+import SplashScreen from 'react-native-splash-screen';
 import firebase from 'firebase';
 import React from 'react';
 import { AsyncStorage, View, Platform } from 'react-native';
@@ -27,11 +28,7 @@ class RootNavigator extends React.Component<any, IState> {
 
   public componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
-      let startPage: string = 'Main';
-      if (user) {
-        startPage = 'Login';
-      }
-
+      const startPage: string = user ? 'Main' : 'Main';
       this.initPage(startPage);
     });
   }
@@ -39,6 +36,7 @@ class RootNavigator extends React.Component<any, IState> {
   public initPage = async (startPage: string) => {
     console.log('startPage: ' + startPage);
     this.setState({ startPage });
+    SplashScreen.hide();
   }
 
   public render() {
