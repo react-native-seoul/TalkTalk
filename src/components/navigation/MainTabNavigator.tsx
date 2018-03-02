@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react/native';
 import React from 'react';
-import { Platform, Image, View, Text, AsyncStorage, BackHandler, StyleSheet } from 'react-native';
+import { Platform, Image, View, Text, AsyncStorage, BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
 import { ratio, colors } from '@utils/Styles';
 import { getString } from '@STRINGS';
 import { TabNavigator, TabBarTop, NavigationActions } from 'react-navigation';
@@ -37,9 +37,11 @@ const styles: any = StyleSheet.create({
     color: 'white',
     marginLeft: 20 * ratio,
   },
-  imgHeaderRight: {
+  touchHeaderRight: {
     position: 'absolute',
     right: 0,
+  },
+  imgHeaderRight: {
     width: 60 * ratio,
     height: 60 * ratio,
   },
@@ -117,13 +119,33 @@ class MainTabNavigator extends React.Component<any, any> {
           start={{x: 0.4, y: 0.6}} end={{x: 1.0, y: 0.8}}
           locations={[0, 0.85]}
           colors={[colors.dodgerBlue, 'rgb(100,199,255)']} style={styles.header}>
-          <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={this.goToUpdateProfile}
+          >
+            <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
+          </TouchableOpacity>
           <Text style={styles.txtHeader}>Jang hyo</Text>
-          <Image style={styles.imgHeaderRight} source={IC_ADD}/>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={this.goToSearchUser}
+            style={styles.touchHeaderRight}
+          >
+            <Image style={styles.imgHeaderRight} source={IC_ADD}/>
+          </TouchableOpacity>
         </LinearGradient>
         <Navigator/>
       </View>
     );
+  }
+
+  private goToUpdateProfile = () => {
+    this.props.navigation.navigate('ProfileUpdate');
+  }
+
+  private goToSearchUser = () => {
+    console.log('goToUpdateProfile');
+    this.props.navigation.navigate('SearchUser');
   }
 }
 

@@ -9,6 +9,9 @@ import MainTabNavigator from './MainTabNavigator';
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
 import FindPw from '@screen/FindPw';
+import ProfileUpdate from '@screen/ProfileUpdate';
+import SearchUser from '@screen/SearchUser';
+import Chat from '@screen/Chat';
 import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
 import appStore from '@stores/appStore';
@@ -45,6 +48,9 @@ class RootNavigator extends React.Component<any, IState> {
       Signup: { screen: Signup },
       FindPw: { screen: FindPw },
       Main: { screen: MainTabNavigator },
+      ProfileUpdate: { screen: ProfileUpdate },
+      SearchUser: { screen: SearchUser },
+      Chat: { screen: Chat },
       NotFound: { screen: NotFound },
     };
 

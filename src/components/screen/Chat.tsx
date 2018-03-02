@@ -1,4 +1,3 @@
-import ProfileModal from '@shared/ProfileModal';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -20,8 +19,6 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  private modal: any;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -31,12 +28,7 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <View style={styles.container}>
-        <Text>Friend</Text>
-        <ProfileModal
-          ref={(v) => this.modal = v}
-          // handleAddFriend={() => {}}
-          // handleGoToChat={() => {}}
-        />
+        <Text>Chat</Text>
       </View>
     );
   }
