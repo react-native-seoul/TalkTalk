@@ -16,8 +16,10 @@ const strings = new LocalizedStrings({
     SEND_LINK: 'Send Link',
     FRIEND: 'Friend',
     MESSAGE: 'Message',
+    MY_PROFILE: 'My profile',
+    UPDATE: 'Update'
   },
-  kr: {
+  ko: {
     HELLO: '안녕하세요',
     LOGIN: '로그인',
     EMAIL: '이메일',
@@ -32,8 +34,13 @@ const strings = new LocalizedStrings({
     SEND_LINK: '링크 보내기',
     FRIEND: '친구',
     MESSAGE: '메세지',
+    MY_PROFILE: '나의 프로필',
+    UPDATE: '수정'
   },
 });
+
+console.log('##### LOCALE #####');
+console.log(strings.getLanguage());
 
 export const getString = (str: string) => {
   return strings[str];
