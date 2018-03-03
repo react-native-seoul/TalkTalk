@@ -14,6 +14,7 @@ import SearchUser from '@screen/SearchUser';
 import Chat from '@screen/Chat';
 import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
+import ProfileModal from '@shared/ProfileModal';
 import appStore from '@stores/appStore';
 
 interface IState {
@@ -84,8 +85,17 @@ class RootNavigator extends React.Component<any, IState> {
     return (
       <View style={{ flex: 1 }}>
         <RootStackNavigator />
+        <ProfileModal
+          ref={(v) => appStore.profileModal = v}
+          onChat={this.onChat}
+        />
       </View>
     );
+  }
+
+  private onChat = () => {
+    appStore.profileModal.close();
+    appStore.navigateRoot(true, 'Chat');
   }
 }
 

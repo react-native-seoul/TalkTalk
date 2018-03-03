@@ -76,6 +76,9 @@ class Screen extends Component<any, any> {
 
   private onItemClick = async (itemId) => {
     console.log(`onItemClick: ${itemId}`);
+
+    appStore.profileModal.setUser(this.state.friends[0]);
+    appStore.profileModal.open();
   }
 }
 

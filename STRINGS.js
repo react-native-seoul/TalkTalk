@@ -8,6 +8,7 @@ export const strings = new LocalizedStrings({
     PASSWORD: 'Password',
     SIGNUP: 'SIGN UP',
     LOGIN: 'LOGIN',
+    LOGIN: 'LOGOUT',
     FORGOT_PW: 'Forgot password?',
     FIND_PW: 'FIND PASSWORD',
     NAME: 'NAME',
@@ -25,6 +26,7 @@ export const strings = new LocalizedStrings({
   ko: {
     HELLO: '안녕하세요',
     LOGIN: '로그인',
+    LOGOUT: '로그아웃',
     EMAIL: '이메일',
     PASSWORD: '패스워드',
     SIGNUP: '회원가입',

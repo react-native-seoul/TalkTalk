@@ -10,6 +10,7 @@ import 'moment/locale/ja';
 // import 'moment/locale/id';
 
 class ObservableListStore {
+  private _profileModal: any;
   @observable private _rootNavigator: any;
   @observable private _rootNavigatorPrevParams: object;
   @observable private _rootNavigatorParams: object;
@@ -21,6 +22,14 @@ class ObservableListStore {
     this._rootNavigatorPrevParams = null;
     this._rootNavigatorParams = null;
     this._user = new User();
+  }
+
+  public get profileModal(): any {
+    return this._profileModal;
+  }
+
+  public set profileModal(value: any) {
+    this._profileModal = value;
   }
 
   public get rootNavigator(): any {

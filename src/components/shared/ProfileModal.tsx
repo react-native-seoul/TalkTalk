@@ -91,8 +91,7 @@ interface ItemState {
 
 interface ItemProps {
   style?: View.propTypes.style;
-  onAddChat?: () => void;
-  onAddFriend?: () => void;
+  onChat?: () => void;
 }
 
 class Shared extends Component<ItemProps, ItemState> {
@@ -136,6 +135,10 @@ class Shared extends Component<ItemProps, ItemState> {
     this.modal.close();
   }
 
+  public addFriend = () => {
+    // TODO ADD FRIEND
+  }
+
   public render() {
     return (
       <Modal
@@ -163,7 +166,7 @@ class Shared extends Component<ItemProps, ItemState> {
           <View style={styles.viewBtns}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={this.props.onAddFriend}
+              onPress={this.addFriend}
               style={styles.viewBtn}
             >
               <View style={styles.viewBtn}>
@@ -173,7 +176,7 @@ class Shared extends Component<ItemProps, ItemState> {
             <View style={styles.viewBtnDivider}/>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={this.props.onAddChat}
+              onPress={this.props.onChat}
               style={styles.viewBtn}
             >
               <View style={styles.viewBtn}>

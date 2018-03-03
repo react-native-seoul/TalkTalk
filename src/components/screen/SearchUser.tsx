@@ -1,4 +1,3 @@
-import ProfileModal from '@shared/ProfileModal';
 import UserListItem from '@shared/UserListItem';
 import EmptyListItem from '@shared/EmptyListItem';
 import ProfileModal from '@shared/ProfileModal';
@@ -17,6 +16,7 @@ import { ratio, colors } from '@utils/Styles';
 import { IC_BACK, IC_SEARCH } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import HeaderBack from '@shared/HeaderBack';
+import appStore from '@stores/appStore';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -98,7 +98,7 @@ class Screen extends Component<any, any> {
         />
         <ProfileModal
           ref={(v) => this.profileModal = v}
-          onAddChat={this.addChat}
+          onChat={this.onChat}
           onAddFriend={this.addFriend}
         />
       </View>
@@ -120,12 +120,12 @@ class Screen extends Component<any, any> {
 
   private onItemClick = (itemId) => {
     console.log(`onItemClick: ${itemId}`);
-    this.profileModal.setUser(this.state.users[0]);
-    this.profileModal.open();
+    appStore.profileModal.setUser(this.state.users[0]);
+    appStore.profileModal.open();
   }
 
-  private addChat = () => {
-    console.log('addChat');
+  private onChat = () => {
+    this.props.navigation.navigate('Chat');
   }
 
   private addFriend = () => {
