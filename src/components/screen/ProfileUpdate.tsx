@@ -45,7 +45,25 @@ const styles: any = StyleSheet.create({
     marginTop: 24 * ratio,
     marginBottom: 48 * ratio,
   },
-  btnRegister: {
+  btnLogout: {
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
+    borderRadius: 4 * ratio,
+    borderWidth: 1 * ratio,
+    width: 136 * ratio,
+    height: 60 * ratio,
+    borderColor: colors.dodgerBlue,
+    marginRight: 4 * ratio,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  txtLogout: {
+    fontSize: 16 * ratio,
+    fontWeight: 'bold',
+    color: colors.dodgerBlue,
+  },
+  btnUpdate: {
     backgroundColor: colors.dodgerBlue,
     borderColor: colors.dodgerBlue,
     borderRadius: 4 * ratio,
@@ -64,14 +82,14 @@ const styles: any = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  txtRegister: {
+  txtUpdate: {
     fontSize: 16 * ratio,
     fontWeight: 'bold',
     color: 'white',
   },
   img: {
-    width: 48 * ratio,
-    height: 48 * ratio,
+    width: 60 * ratio,
+    height: 60 * ratio,
   },
 });
 
@@ -79,6 +97,7 @@ class Screen extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
+      isUpdating: false,
       name: '',
       statusMsg: '',
     };
@@ -96,6 +115,12 @@ class Screen extends Component<any, any> {
           contentContainerStyle={styles.scrollViewContainer}
         >
           <View style={styles.wrapper}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={this.onPressImg}
+            >
+              <Image source={IC_MASK} style={styles.img} />
+            </TouchableOpacity>
             <TextInput
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('NAME')}
@@ -113,17 +138,16 @@ class Screen extends Component<any, any> {
               isPassword={ true }
             />
             <View style={styles.btnWrapper}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={this.onPressImg}
-              >
-                <Image source={IC_MASK} style={styles.img} />
-              </TouchableOpacity>
               <Button
-                isLoading={this.state.isRegistering}
-                onPress={this.onRegister}
-                style={styles.btnRegister}
-                textStyle={styles.txtRegister}
+                onPress={this.onLogout}
+                style={styles.btnLogout}
+                textStyle={styles.txtLogout}
+              >{getString('LOGOUT')}</Button>
+              <Button
+                isLoading={this.state.isUpdating}
+                onPress={this.onUpdate}
+                style={styles.btnUpdate}
+                textStyle={styles.txtUpdate}
               >{getString('UPDATE')}</Button>
             </View>
           </View>
