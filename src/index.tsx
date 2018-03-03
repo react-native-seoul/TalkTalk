@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'moment/locale/ko';
+import { strings } from '@STRINGS';
 import firebase from 'firebase';
 import { firebaseConfig } from '@config';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -15,6 +18,10 @@ firebase.initializeApp(firebaseConfig);
 
 // @observer
 class App extends React.Component {
+  public componentDidMount() {
+    moment.locale(strings.getLanguage());
+  }
+
   public render() {
     return (
       <View style={styles.container}>

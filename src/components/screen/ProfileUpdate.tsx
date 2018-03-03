@@ -124,7 +124,7 @@ class Screen extends Component<any, any> {
                 onPress={this.onRegister}
                 style={styles.btnRegister}
                 textStyle={styles.txtRegister}
-              >{getString('REGISTER')}</Button>
+              >{getString('UPDATE')}</Button>
             </View>
           </View>
         </ScrollView>

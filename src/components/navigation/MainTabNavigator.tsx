@@ -61,6 +61,8 @@ class MainTabNavigator extends React.Component<any, any> {
         return false;
       });
     }
+
+    appStore.rootNavigator = this.props.navigation;
   }
 
   public componentWillUnmount() {

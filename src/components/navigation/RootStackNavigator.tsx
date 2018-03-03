@@ -82,7 +82,9 @@ class RootNavigator extends React.Component<any, IState> {
     // }
 
     return (
-      <RootStackNavigator />
+      <View style={{ flex: 1 }}>
+        <RootStackNavigator />
+      </View>
     );
   }
 }

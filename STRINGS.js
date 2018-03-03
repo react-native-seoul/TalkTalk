@@ -1,6 +1,6 @@
 import LocalizedStrings from 'react-native-localization';
 
-const strings = new LocalizedStrings({
+export const strings = new LocalizedStrings({
   en: {
     HELLO: 'Hello',
     LOGIN: 'Login',
@@ -17,7 +17,10 @@ const strings = new LocalizedStrings({
     FRIEND: 'Friend',
     MESSAGE: 'Message',
     MY_PROFILE: 'My profile',
-    UPDATE: 'Update'
+    UPDATE: 'Update',
+    NO_CONTENT: 'No content',
+    ADD_FRIEND: 'ADD',
+    GO_CHAT: 'GO CHAT',
   },
   ko: {
     HELLO: '안녕하세요',
@@ -35,12 +38,12 @@ const strings = new LocalizedStrings({
     FRIEND: '친구',
     MESSAGE: '메세지',
     MY_PROFILE: '나의 프로필',
-    UPDATE: '수정'
+    UPDATE: '수정',
+    NO_CONTENT: '컨텐츠가 없습니다',
+    ADD_FRIEND: '친구추가',
+    GO_CHAT: '채팅하기',
   },
 });
-
-console.log('##### LOCALE #####');
-console.log(strings.getLanguage());
 
 export const getString = (str: string) => {
   return strings[str];

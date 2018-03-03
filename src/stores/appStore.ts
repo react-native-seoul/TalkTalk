@@ -17,7 +17,6 @@ class ObservableListStore {
   @observable private _user: User;
 
   constructor() {
-    this._rootNavigator = null;
     this._rootNavigatorActionHorizontal = true;
     this._rootNavigatorPrevParams = null;
     this._rootNavigatorParams = null;
@@ -57,13 +56,18 @@ class ObservableListStore {
   }
 
   public navigateRoot = (slideHorizontal: boolean, routeName: string, params?: object) => {
-    this.rootNavigatorActionHorizontal = slideHorizontal;
+    console.log('navigateRoot');
+    this._rootNavigatorActionHorizontal = slideHorizontal;
 
-    if (this.rootNavigatorParams) {
-      this.rootNavigatorPrevParams = this._rootNavigatorParams;
-      this.rootNavigatorParams = params;
+    if (this._rootNavigatorParams) {
+      this._rootNavigatorPrevParams = this._rootNavigatorParams;
+      this._rootNavigatorParams = params;
     }
-    this.rootNavigator.navigate(routeName);
+
+    if (this._rootNavigator) {
+      console.log(`navigate: ${routeName}`);
+      this._rootNavigator.navigate(routeName);
+    }
   }
 
   public navigateRootBack = () => {

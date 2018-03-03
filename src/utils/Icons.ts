@@ -3,3 +3,4 @@ export const IC_ICON = require('../../assets/icons/icon.png');
 export const IC_BACK = require('../../assets/icons/btnBack.png');
 export const IC_ADD = require('../../assets/icons/btnAdd.png');
 export const IC_PIC = require('../../assets/icons/pictoGallery.png');
+export const IC_SEARCH = require('../../assets/icons/picSearch.png');
