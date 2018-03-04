@@ -147,7 +147,6 @@ class Screen extends Component<any, any> {
           <View style={styles.wrapper}>
             <TextInput
               style={ styles.txtInput }
-              marginHorizontal={ 20 * ratio }
               // txtLabel={ getString('EMAIL') }
               txtHint={ getString('EMAIL') }
               txt={ this.state.email }
@@ -209,7 +208,7 @@ class Screen extends Component<any, any> {
     console.log('goToForgotPw');
   }
 
-  private login = () => {
+  private onLogin = () => {
     console.log('login');
   }
 }

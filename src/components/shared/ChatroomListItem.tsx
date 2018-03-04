@@ -77,7 +77,7 @@ interface IItem {
   displayName: string;
   msg: string;
   count: number;
-  date: date;
+  date: Date;
 }
 
 interface ItemProps {

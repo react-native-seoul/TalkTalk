@@ -51,6 +51,6 @@ export const strings = new LocalizedStrings({
   },
 });
 
-export const getString = (str: string) => {
+export const getString = (str) => {
   return strings[str];
 };

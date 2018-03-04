@@ -81,13 +81,13 @@ class ObservableListStore {
 
   public navigateRootBack = () => {
     console.log('navigateRootBack');
-    this.rootNavigatorParams = this.rootNavigatorPrevParams;
-    this.rootNavigatorPrevParams = null;
-    this.rootNavigator.goBack(null);
+    this._rootNavigatorParams = this._rootNavigatorPrevParams;
+    this._rootNavigatorPrevParams = null;
+    this._rootNavigator.goBack(null);
   }
 
   public navigateRootReset = (resetAction) => {
-    this.rootNavigator.dispatch(resetAction);
+    this._rootNavigator.dispatch(resetAction);
   }
 }
 

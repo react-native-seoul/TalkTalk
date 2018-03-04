@@ -52,16 +52,6 @@ class MainTabNavigator extends React.Component<any, any> {
   public backButtonListener: any;
 
   public async componentDidMount() {
-    if (Platform.OS === 'android') {
-      this.backButtonListener = BackHandler.addEventListener('hardwareBackPress', () => {
-        if (playerStore.showFullScreen || appStore.$routers.length !== 0) {
-          appStore.navigateRootBack();
-          return true;
-        }
-        return false;
-      });
-    }
-
     appStore.rootNavigator = this.props.navigation;
   }
 
@@ -89,6 +79,8 @@ class MainTabNavigator extends React.Component<any, any> {
                 return `${getString('FRIEND')} 24`;
               case 'Message':
                 return `${getString('MESSAGE')} 8`;
+              default:
+                return '';
             }
           },
         }),
@@ -111,7 +103,6 @@ class MainTabNavigator extends React.Component<any, any> {
           style: {
             backgroundColor: 'white',
           },
-          statusBarStyle: 'light-content',
         },
       },
     );

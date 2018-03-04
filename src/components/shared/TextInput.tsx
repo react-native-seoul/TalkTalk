@@ -57,6 +57,7 @@ const styles: any = StyleSheet.create({
 });
 
 interface ItemProps {
+  style?: View.propTypes.style;
   labelStyle?: Text.propTypes.style;
   labelStyleFocus?: Text.propTypes.style;
   placeholderTextColor?: string;

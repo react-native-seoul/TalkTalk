@@ -101,7 +101,6 @@ class Screen extends Component<any, any> {
         <ProfileModal
           ref={(v) => this.profileModal = v}
           onChat={this.onChat}
-          onAddFriend={this.addFriend}
         />
       </View>
     );
@@ -128,10 +127,6 @@ class Screen extends Component<any, any> {
 
   private onChat = () => {
     this.props.navigation.navigate('Chat');
-  }
-
-  private addFriend = () => {
-    console.log('addFriend');
   }
 }
 

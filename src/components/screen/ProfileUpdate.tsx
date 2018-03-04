@@ -158,6 +158,14 @@ class Screen extends Component<any, any> {
     );
   }
 
+  private onLogout = () => {
+    console.log('onLogout');
+  }
+
+  private onUpdate = () => {
+    console.log('onUpdate');
+  }
+
   private onTextChanged = (type, text) => {
     switch (type) {
       case 'NAME':

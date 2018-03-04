@@ -137,6 +137,10 @@ class Screen extends Component<any, any> {
     );
   }
 
+  private onRegister = () => {
+    console.log('onRegister');
+  }
+
   private onTextChanged = (type, text) => {
     switch (type) {
       case 'EMAIL':

@@ -11,7 +11,6 @@ import {
   View,
   FlatList,
   InteractionManager,
-  Platform,
 } from 'react-native';
 
 import appStore from '@stores/appStore';

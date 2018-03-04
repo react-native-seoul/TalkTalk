@@ -32,7 +32,7 @@ class RootNavigator extends React.Component<any, IState> {
 
   public componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
-      const startPage: string = user ? 'Main' : 'Chat';
+      const startPage: string = user ? 'Main' : 'Login';
       this.initPage(startPage);
     });
   }

@@ -154,6 +154,10 @@ class Screen extends Component<any, any> {
   private sendChat = () => {
     console.log('sendChat');
   }
+
+  private goBack = () => {
+    this.props.navigation.goBack();
+  }
 }
 
 export default Screen;
