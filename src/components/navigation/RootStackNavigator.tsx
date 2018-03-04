@@ -1,7 +1,7 @@
 import SplashScreen from 'react-native-splash-screen';
 import firebase from 'firebase';
 import React from 'react';
-import { AsyncStorage, View, Platform } from 'react-native';
+import { AsyncStorage, View, Platform, StyleSheet } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
@@ -32,7 +32,7 @@ class RootNavigator extends React.Component<any, IState> {
 
   public componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
-      const startPage: string = user ? 'Main' : 'Main';
+      const startPage: string = user ? 'Main' : 'Chat';
       this.initPage(startPage);
     });
   }
@@ -83,7 +83,7 @@ class RootNavigator extends React.Component<any, IState> {
     // }
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, flexDirection: 'column' }}>
         <RootStackNavigator />
         <ProfileModal
           ref={(v) => appStore.profileModal = v}

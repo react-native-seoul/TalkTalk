@@ -1,4 +1,5 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { width , height } = Dimensions.get('window');
 const calRatio = (16 * (width / height));
@@ -6,6 +7,7 @@ const calRatio = (16 * (width / height));
 export const screenWidth = width;
 export const screenHeight = height;
 export const ratio = (calRatio < 9 ? width / 9 : height / 18) / (360 / 9);
+export const statusBarHeight = Platform.OS === 'ios' ? getStatusBarHeight(false) : 0;
 
 interface Icolors {
   dodgerBlue: string;

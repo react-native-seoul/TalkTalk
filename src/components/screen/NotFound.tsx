@@ -11,11 +11,13 @@ import {
   View,
   FlatList,
   InteractionManager,
+  Platform,
 } from 'react-native';
+
 import appStore from '@stores/appStore';
 import NativeButton from 'apsl-react-native-button';
 
-import { ratio } from '@utils/Styles';
+import { ratio, statusBarHeight } from '@utils/Styles';
 import {
   IC_MASK,
 } from '@utils/Icons';
@@ -23,6 +25,7 @@ import {
 const styles: any = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: statusBarHeight, // false to get height of android too.
     backgroundColor: 'transparent',
     flexDirection: 'column',
     alignItems: 'center',

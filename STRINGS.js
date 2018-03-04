@@ -22,6 +22,8 @@ export const strings = new LocalizedStrings({
     NO_CONTENT: 'No content',
     ADD_FRIEND: 'ADD',
     GO_CHAT: 'GO CHAT',
+    SEND: 'Send',
+    WRITE_MESSAGE: 'Write message...',
   },
   ko: {
     HELLO: '안녕하세요',
@@ -44,6 +46,8 @@ export const strings = new LocalizedStrings({
     NO_CONTENT: '컨텐츠가 없습니다',
     ADD_FRIEND: '친구추가',
     GO_CHAT: '채팅하기',
+    SEND: '보내기',
+    WRITE_MESSAGE: '메세지를 입력해주세요…',
   },
 });
 

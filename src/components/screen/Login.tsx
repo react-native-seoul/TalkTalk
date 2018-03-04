@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ScrollView,
+  Platform,
 } from 'react-native';
 
 import { ratio, colors } from '@utils/Styles';
@@ -13,6 +14,7 @@ import { strings } from '@STRINGS';
 import { IC_ICON } from '@utils/Icons';
 import { getString } from '@STRINGS';
 
+import { statusBarHeight } from '@utils/Styles';
 import appStore from '@stores/appStore';
 
 import TextInput from '@shared/TextInput';
@@ -24,6 +26,7 @@ const styles: any = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingTop: statusBarHeight, // false to get height of android too.
 
     flexDirection: 'column',
     alignItems: 'center',

@@ -6,9 +6,10 @@ import {
   Text,
   View,
   ScrollView,
+  Platform,
 } from 'react-native';
 
-import { ratio, colors } from '@utils/Styles';
+import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import HeaderBack from '@shared/HeaderBack';
 import { IC_BACK } from '@utils/Icons';
 import { getString } from '@STRINGS';
@@ -19,7 +20,9 @@ import Button from '@shared/Button';
 const styles: any = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: statusBarHeight, // false to get height of android too.
     backgroundColor: 'white',
+
     flexDirection: 'column',
     alignItems: 'center',
   },

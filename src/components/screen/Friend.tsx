@@ -8,6 +8,7 @@ import {
   Text,
   View,
   FlatList,
+  Platform,
 } from 'react-native';
 
 import { ratio, colors, screenWidth } from '@utils/Styles';
