@@ -65,10 +65,12 @@ const styles: any = StyleSheet.create({
   txtMsg: {
     fontSize: 12 * ratio,
     color: colors.dusk,
+    maxWidth: 150 * ratio,
   },
   txtDate: {
     fontSize: 12 * ratio,
     color: colors.blueyGray,
+    textAlign: 'right',
   },
 });
 

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react/native';
 import React from 'react';
 import { Platform, Image, View, Text, AsyncStorage, BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
-import { ratio, colors } from '@utils/Styles';
+import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { getString } from '@STRINGS';
 import { TabNavigator, TabBarTop, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +16,7 @@ const styles: any = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop: statusBarHeight, // false to get height of android too.
   },
   indicatorStyle: {
     backgroundColor: colors.dodgerBlue,

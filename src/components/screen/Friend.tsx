@@ -32,13 +32,13 @@ class Screen extends Component<any, any> {
         {
           id: 1,
           img: null,
-          displayName: '고현정잉',
-          statusMsg: '나는 지금 아무 생각이',
+          displayName: 'dooboolab',
+          statusMsg: 'Hello. I am fine.',
         },
         {
           id: 2,
           img: null,
-          displayName: '고무고무열매',
+          displayName: 'GOMUGOMU',
           statusMsg: '',
         },
       ],

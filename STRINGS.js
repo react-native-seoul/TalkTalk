@@ -8,7 +8,7 @@ export const strings = new LocalizedStrings({
     PASSWORD: 'Password',
     SIGNUP: 'SIGN UP',
     LOGIN: 'LOGIN',
-    LOGIN: 'LOGOUT',
+    LOGOUT: 'LOGOUT',
     FORGOT_PW: 'Forgot password?',
     FIND_PW: 'FIND PASSWORD',
     NAME: 'NAME',
@@ -24,6 +24,7 @@ export const strings = new LocalizedStrings({
     GO_CHAT: 'GO CHAT',
     SEND: 'Send',
     WRITE_MESSAGE: 'Write message...',
+    ERROR: 'Error',
   },
   ko: {
     HELLO: '안녕하세요',
@@ -48,6 +49,7 @@ export const strings = new LocalizedStrings({
     GO_CHAT: '채팅하기',
     SEND: '보내기',
     WRITE_MESSAGE: '메세지를 입력해주세요…',
+    Error: '에러',
   },
 });
 
