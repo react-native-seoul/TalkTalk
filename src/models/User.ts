@@ -8,9 +8,26 @@ import {
 import { observable } from 'mobx';
 
 class User {
+  @observable private _uid: string;
+  @observable private _img: string;
   @observable private _displayName: string;
-  @observable private _age: number;
-  @observable private _job: string;
+  @observable private _statusMsg: string;
+
+  public get uid(): string {
+    return this._uid;
+  }
+
+  public set uid(value: string) {
+    this._uid = value;
+  }
+
+  public get img(): string {
+    return this._img;
+  }
+
+  public set img(value: string) {
+    this._img = value;
+  }
 
   public get displayName(): string {
     return this._displayName;
@@ -20,20 +37,12 @@ class User {
     this._displayName = value;
   }
 
-  public get age(): number {
-    return this._age;
+  public get statusMsg(): string {
+    return this._statusMsg;
   }
 
-  public set age(value: number) {
-    this._age = value;
-  }
-
-  public get job(): string {
-    return this._job;
-  }
-
-  public set job(value: string) {
-    this._job = value;
+  public set statusMsg(value: string) {
+    this._statusMsg = value;
   }
 }
 
