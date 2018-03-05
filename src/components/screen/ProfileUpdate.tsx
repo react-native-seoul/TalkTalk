@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -158,8 +159,9 @@ class Screen extends Component<any, any> {
     );
   }
 
-  private onLogout = () => {
+  private onLogout = async () => {
     console.log('onLogout');
+    await firebase.auth().signOut();
   }
 
   private onUpdate = () => {

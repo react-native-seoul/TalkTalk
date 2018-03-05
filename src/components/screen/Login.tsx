@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   Text,
   View,
   ScrollView,
+  Alert,
   Platform,
 } from 'react-native';
 
@@ -127,8 +129,9 @@ class Screen extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
+      isLoggingIn: false,
       email: '',
-      password: '',
+      pw: '',
     };
   }
 
@@ -209,7 +212,16 @@ class Screen extends Component<any, any> {
   }
 
   private onLogin = () => {
-    console.log('login');
+    this.setState({ isLoggingIn: true }, async () => {
+      try {
+        const userData = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.pw);
+        console.log(userData);
+      } catch (err) {
+        Alert.alert(getString('ERROR'), err.message);
+        this.setState({ isLoggingIn: false });
+        return false;
+      }
+    });
   }
 }
 

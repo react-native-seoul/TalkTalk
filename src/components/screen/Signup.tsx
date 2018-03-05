@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,6 +8,7 @@ import {
   View,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
@@ -72,10 +74,21 @@ const styles: any = StyleSheet.create({
   },
 });
 
-class Screen extends Component<any, any> {
+interface IState {
+  email: string;
+  password: string;
+  displayName: string;
+  statusMsg: string;
+}
+
+class Screen extends Component<any, IState> {
   constructor(props) {
     super(props);
     this.state = {
+      email: '',
+      pw: '',
+      displayName: '',
+      statusMsg: '',
     };
   }
 
@@ -95,9 +108,8 @@ class Screen extends Component<any, any> {
               style={{ marginTop: 8 * ratio }}
               txtLabel={getString('EMAIL')}
               txtHint={ getString('EMAIL') }
-              txt={ this.state.pw }
+              txt={ this.state.email }
               onTextChanged={ (text) => this.onTextChanged('EMAIL', text)}
-              isPassword={ true }
             />
             <TextInput
               style={{ marginTop: 24 * ratio }}
@@ -111,17 +123,15 @@ class Screen extends Component<any, any> {
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('NAME')}
               txtHint={ getString('NAME') }
-              txt={ this.state.pw }
+              txt={ this.state.displayName }
               onTextChanged={ (text) => this.onTextChanged('NAME', text)}
-              isPassword={ true }
             />
             <TextInput
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('STATUS_MSG')}
               txtHint={ getString('STATUS_MSG') }
-              txt={ this.state.pw }
+              txt={ this.state.statusMsg }
               onTextChanged={ (text) => this.onTextChanged('STATUS_MSG', text)}
-              isPassword={ true }
             />
             <View style={styles.btnWrapper}>
               <Button
@@ -137,8 +147,18 @@ class Screen extends Component<any, any> {
     );
   }
 
-  private onRegister = () => {
-    console.log('onRegister');
+  private onRegister = async () => {
+    try {
+      const userData = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pw);
+      console.log(userData);
+      userData.updateProfile({
+        displayName: user.displayName,
+        photoURL: '',
+      });
+    } catch (err) {
+      Alert.alert(getString('ERROR'), err.message);
+      return false;
+    }
   }
 
   private onTextChanged = (type, text) => {
@@ -148,6 +168,12 @@ class Screen extends Component<any, any> {
         return;
       case 'PW':
         this.setState({ pw: text });
+        return;
+      case 'NAME':
+        this.setState({ displayName: text });
+        return;
+      case 'STATUS_MSG':
+        this.setState({ statusMsg: text });
         return;
     }
   }
