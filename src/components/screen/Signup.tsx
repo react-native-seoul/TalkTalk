@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+require('firebase/firestore');
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -75,6 +76,7 @@ const styles: any = StyleSheet.create({
 });
 
 interface IState {
+  isRegistering: boolean;
   email: string;
   password: string;
   displayName: string;
@@ -85,6 +87,7 @@ class Screen extends Component<any, IState> {
   constructor(props) {
     super(props);
     this.state = {
+      isRegistering: false,
       email: '',
       pw: '',
       displayName: '',
@@ -147,18 +150,38 @@ class Screen extends Component<any, IState> {
     );
   }
 
-  private onRegister = async () => {
-    try {
-      const userData = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pw);
-      console.log(userData);
-      userData.updateProfile({
-        displayName: user.displayName,
-        photoURL: '',
-      });
-    } catch (err) {
-      Alert.alert(getString('ERROR'), err.message);
-      return false;
-    }
+  private onRegister = () => {
+    this.setState({ isRegistering: true }, async () => {
+      try {
+        const userData = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pw);
+        console.log(userData);
+        userData.updateProfile({
+          displayName: this.state.displayName,
+          photoURL: '',
+        });
+
+        // realtime-database
+        firebase.database().ref('users').child(`${userData.uid}`).set({
+          displayName: this.state.displayName,
+          email: this.state.email,
+          img: '',
+          statusMsg: this.state.email,
+        });
+
+        // firestore
+        firebase.firestore().collection('users').doc(`${userData.uid}`).set({
+          displayName: this.state.displayName,
+          email: this.state.email,
+          img: '',
+          statusMsg: this.state.email,
+        });
+      } catch (err) {
+        this.setState({ isRegistering: false });
+        Alert.alert(getString('ERROR'), err.message);
+        return false;
+      }
+    });
+
   }
 
   private onTextChanged = (type, text) => {

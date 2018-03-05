@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { USE_FIRESTORE } from '@utils/Constants';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -101,9 +102,40 @@ class Screen extends Component<any, any> {
     super(props);
     this.state = {
       isUpdating: false,
-      name: '',
+      displayName: '',
       statusMsg: '',
+      photoURL: '',
     };
+  }
+
+  public componentDidMount() {
+    const userId = firebase.auth().currentUser.uid;
+    if (USE_FIRESTORE) {
+      firebase.firestore().collection('users').doc(userId).get().then((doc) => {
+        console.log(doc);
+        if (doc.exists) {
+          const user = doc.data();
+          console.log('user');
+          console.log(user);
+          this.setState({
+            displayName: user.displayName,
+            email: user.email,
+            statusMsg: user.statusMsg,
+            photoURL: user.photoURL,
+          });
+        }
+      });
+      return;
+    }
+    firebase.database().ref('users').child(`/${userId}`).once('value').then((snapshot) => {
+      const user = snapshot.val();
+      this.setState({
+        displayName: user.displayName,
+        email: user.email,
+        statusMsg: user.statusMsg,
+        photoURL: user.photoURL,
+      });
+    });
   }
 
   public render() {
@@ -128,17 +160,15 @@ class Screen extends Component<any, any> {
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('NAME')}
               txtHint={ getString('NAME') }
-              txt={ this.state.pw }
-              onTextChanged={ (text) => this.onTextChanged('NAME', text)}
-              isPassword={ true }
+              txt={ this.state.displayName }
+              onTextChanged={ (text) => this.onTextChanged('DISPLAY_NAME', text)}
             />
             <TextInput
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('STATUS_MSG')}
               txtHint={ getString('STATUS_MSG') }
-              txt={ this.state.pw }
+              txt={ this.state.statusMsg }
               onTextChanged={ (text) => this.onTextChanged('STATUS_MSG', text)}
-              isPassword={ true }
             />
             <View style={styles.btnWrapper}>
               <Button
@@ -170,8 +200,8 @@ class Screen extends Component<any, any> {
 
   private onTextChanged = (type, text) => {
     switch (type) {
-      case 'NAME':
-        this.setState({ name: text });
+      case 'DISPLAY_NAME':
+        this.setState({ displayName: text });
         return;
       case 'STATUS_MSG':
         this.setState({ statusMsg: text });

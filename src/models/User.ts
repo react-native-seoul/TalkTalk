@@ -9,7 +9,7 @@ import { observable } from 'mobx';
 
 class User {
   @observable private _uid: string;
-  @observable private _img: string;
+  @observable private _photoURL: string;
   @observable private _displayName: string;
   @observable private _statusMsg: string;
 
@@ -21,12 +21,12 @@ class User {
     this._uid = value;
   }
 
-  public get img(): string {
-    return this._img;
+  public get photoURL(): string {
+    return this._photoURL;
   }
 
-  public set img(value: string) {
-    this._img = value;
+  public set photoURL(value: string) {
+    this._photoURL = value;
   }
 
   public get displayName(): string {

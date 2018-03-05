@@ -3,7 +3,7 @@ import { observable } from 'mobx';
 class Chat {
   @observable private _uid: string;
   @observable private _sender: string[];
-  @observable private _img: string[];
+  @observable private _photoURL: string[];
   @observable private _message: string[];
   @observable private _date: string[];
 
@@ -23,12 +23,12 @@ class Chat {
     this._sender = value;
   }
 
-  public get img(): string[] {
-    return this._img;
+  public get photoURL(): string[] {
+    return this._photoURL;
   }
 
-  public set img(value: string[]) {
-    this._img = value;
+  public set photoURL(value: string[]) {
+    this._photoURL = value;
   }
 
   public get message(): string[] {
@@ -37,6 +37,14 @@ class Chat {
 
   public set message(value: string[]) {
     this._message = value;
+  }
+
+  public get date(): string[] {
+    return this._date;
+  }
+
+  public set date(value: string[]) {
+    this._date = value;
   }
 }
 
