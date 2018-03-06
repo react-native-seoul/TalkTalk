@@ -204,8 +204,25 @@ class Shared extends Component<ItemProps, ItemState> {
     });
   }
 
-  public deleteFriend = () => {
+  public deleteFriend = async () => {
+
+    /**
+     * find friend key of @param this.state.user.friendId
+     */
+
     const userData = firebase.auth().currentUser;
+    console.log(`users/${userData.uid}/friends/${this.state.user.friendId}`);
+
+    // realtime-database
+    await firebase.database().ref(`users/${userData.uid}/friends/${this.state.user.friendId}`).remove();
+
+    // firestore
+    await firebase.firestore()
+    .collection('users').doc(`${userData.uid}`)
+    .collection('friends').doc(`${this.state.user.friendId}`)
+    .delete();
+
+    this.modal.close();
   }
 
   public render() {
