@@ -164,16 +164,16 @@ class Screen extends Component<any, IState> {
         firebase.database().ref('users').child(`${userData.uid}`).set({
           displayName: this.state.displayName,
           email: this.state.email,
-          img: '',
-          statusMsg: this.state.email,
+          photoURL: '',
+          statusMsg: this.state.statusMsg,
         });
 
         // firestore
         firebase.firestore().collection('users').doc(`${userData.uid}`).set({
           displayName: this.state.displayName,
           email: this.state.email,
-          img: '',
-          statusMsg: this.state.email,
+          photoURL: '',
+          statusMsg: this.state.statusMsg,
         });
       } catch (err) {
         this.setState({ isRegistering: false });

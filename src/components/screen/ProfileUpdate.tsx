@@ -196,6 +196,33 @@ class Screen extends Component<any, any> {
 
   private onUpdate = () => {
     console.log('onUpdate');
+    this.setState({ isUpdating: true }, () => {
+      try {
+        const userData = firebase.auth().currentUser;
+        userData.updateProfile({
+          displayName: this.state.displayName,
+          photoURL: '',
+        });
+
+        // realtime-database
+        firebase.database().ref('users').child(`${userData.uid}`).set({
+          displayName: this.state.displayName,
+          email: this.state.email,
+          photoURL: '',
+          statusMsg: this.state.statusMsg,
+        });
+
+        // firestore
+        firebase.firestore().collection('users').doc(`${userData.uid}`).set({
+          displayName: this.state.displayName,
+          statusMsg: this.state.statusMsg,
+        }, { merge: true });
+
+        this.props.navigation.goBack();
+      } catch (err) {
+        this.setState({ isUpdating: false });
+      }
+    });
   }
 
   private onTextChanged = (type, text) => {
