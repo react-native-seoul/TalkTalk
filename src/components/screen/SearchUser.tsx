@@ -1,3 +1,6 @@
+import firebase from 'firebase';
+import { USE_FIRESTORE } from '@utils/Constants';
+
 import UserListItem from '@shared/UserListItem';
 import EmptyListItem from '@shared/EmptyListItem';
 import ProfileModal from '@shared/ProfileModal';
@@ -55,21 +58,44 @@ class Screen extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      users: [
-        {
-          id: 1,
-          img: null,
-          displayName: '고현정잉',
-          statusMsg: '나는 지금 아무 생각이',
-        },
-        {
-          id: 2,
-          img: null,
-          displayName: '고무고무열매',
-          statusMsg: '',
-        },
-      ],
+      searchTxt: '',
+      users: [],
     };
+  }
+
+  public componentDidMount() {
+    /**
+     * get all the users
+     */
+    if (USE_FIRESTORE) {
+      firebase.firestore().collection('users')
+      .orderBy('displayName', 'asc')
+      .get().then((snapshots) => {
+        const users = [];
+        snapshots.forEach((doc) => {
+          const user = doc.data();
+          user.id = doc.id;
+          if (user.email !== firebase.auth().currentUser.email) {
+            users.push(user);
+          }
+        });
+        this.setState({ users });
+      });
+      return;
+    }
+    firebase.database().ref('users')
+    .orderByChild('displayName')
+    .once('value')
+    .then((snapshots) => {
+      const users = [];
+      snapshots.forEach((doc) => {
+        const user = doc.val();
+        if (user.email !== firebase.auth().currentUser.email) {
+          users.push(user);
+        }
+      });
+      this.setState({ users });
+    });
   }
 
   public render() {
@@ -81,7 +107,14 @@ class Screen extends Component<any, any> {
         />
         <View style={styles.viewSearch}>
           <TextInput
+            onChangeText={(text) => this.onTxtChanged(text)}
+            underlineColorAndroid='transparent' // android fix
+            autoCapitalize='none'
+            autoCorrect={false}
+            multiline={false}
+            value={this.state.searchTxt}
             style={styles.inputSearch}
+            onSubmitEditing={this.onSearch}
           />
           <Image source={IC_SEARCH} style={styles.imgSearch}/>
         </View>
@@ -98,10 +131,6 @@ class Screen extends Component<any, any> {
           renderItem={this.renderItem}
           ListEmptyComponent={<EmptyListItem>{getString('NO_CONTENT')}</EmptyListItem>}
         />
-        <ProfileModal
-          ref={(v) => this.profileModal = v}
-          onChat={this.onChat}
-        />
       </View>
     );
   }
@@ -114,15 +143,60 @@ class Screen extends Component<any, any> {
     return (
       <UserListItem
         item={item}
-        onPress={() => this.onItemClick(item.id)}
+        onPress={() => this.onItemClick(item)}
       />
     );
   }
 
-  private onItemClick = (itemId) => {
-    console.log(`onItemClick: ${itemId}`);
-    appStore.profileModal.setUser(this.state.users[0]);
+  private onItemClick = (item) => {
+    console.log(item);
+    appStore.profileModal.setUser(item);
+    appStore.profileModal.showAddBtn(true);
     appStore.profileModal.open();
+  }
+
+  private onTxtChanged = (txt) => {
+    this.setState({
+      searchTxt: txt,
+    });
+  }
+
+  private onSearch = () => {
+    console.log('onSearch: ' + this.state.searchTxt);
+    if (USE_FIRESTORE) {
+      firebase.firestore().collection('users')
+      .where('displayName', '>=', this.state.searchTxt)
+      .where('displayName', '<', `${this.state.searchTxt}\uf8ff`)
+      .get().then((snapshots) => {
+        const users = [];
+        snapshots.forEach((doc) => {
+          const user = doc.data();
+          user.id = doc.id;
+          console.log(user);
+          if (user.email !== firebase.auth().currentUser.email) {
+            users.push(user);
+          }
+        });
+        this.setState({ users });
+      });
+      return;
+    }
+    firebase.database().ref('users')
+    .orderByChild('displayName')
+    .startAt(this.state.searchTxt)
+    .endAt(`${this.state.searchTxt}\uf8ff`)
+    .once('value')
+    .then((snapshots) => {
+      const users = [];
+      snapshots.forEach((doc) => {
+        const user = doc.val();
+        user.id = doc.id;
+        if (user.email !== firebase.auth().currentUser.email) {
+          users.push(user);
+        }
+      });
+      this.setState({ users });
+    });
   }
 
   private onChat = () => {

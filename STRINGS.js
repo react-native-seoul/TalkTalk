@@ -21,10 +21,13 @@ export const strings = new LocalizedStrings({
     UPDATE: 'Update',
     NO_CONTENT: 'No content',
     ADD_FRIEND: 'ADD',
+    DELETE_FRIEND: 'DELETE',
     GO_CHAT: 'GO CHAT',
     SEND: 'Send',
     WRITE_MESSAGE: 'Write message...',
     ERROR: 'Error',
+    FRIEND_ADDED: 'Added to your friend.',
+    FRIEND_ALREADY_ADDED: 'Already your friend.',
   },
   ko: {
     HELLO: '안녕하세요',
@@ -46,10 +49,13 @@ export const strings = new LocalizedStrings({
     UPDATE: '수정',
     NO_CONTENT: '컨텐츠가 없습니다',
     ADD_FRIEND: '친구추가',
+    DELETE_FRIEND: '친구삭제',
     GO_CHAT: '채팅하기',
     SEND: '보내기',
     WRITE_MESSAGE: '메세지를 입력해주세요…',
     Error: '에러',
+    FRIEND_ADDED: '친구로 등록되었습니다.',
+    FRIEND_ALREADY_ADDED: '이미 친구입니다.',
   },
 });
 
