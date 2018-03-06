@@ -45,11 +45,15 @@ class Screen extends Component<any, any> {
       .orderBy('id', 'asc')
       .onSnapshot((snapshots) => {
         const friends = [];
+        if (snapshots.size === 0) {
+          this.setState({ friends });
+          return;
+        }
         snapshots.forEach((doc) => {
           let user = doc.data();
+          user.friendId = doc.id;
           firebase.firestore().collection('users').doc(user.id).onSnapshot((friendSnap) => {
             user = { ...user, ...friendSnap.data() };
-            console.log(user);
             friends.push(user);
             if (snapshots.size === friends.length) {
               this.setState({ friends });
@@ -63,8 +67,13 @@ class Screen extends Component<any, any> {
     .orderByChild('id')
     .on('value', (snapshots) => {
       const friends = [];
+      if (snapshots.numChildren() === 0) {
+        this.setState({ friends });
+        return;
+      }
       snapshots.forEach((doc) => {
         let user = doc.val();
+        user.friendId = doc.key;
         firebase.database().ref(`users/${user.id}`)
         .on('value', (friendSnap) => {
           user = { ...user, ...friendSnap.val() };
