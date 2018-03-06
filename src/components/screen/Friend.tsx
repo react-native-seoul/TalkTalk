@@ -70,15 +70,14 @@ class Screen extends Component<any, any> {
     return (
       <UserListItem
         item={item}
-        onPress={() => this.onItemClick(item.id)}
+        onPress={() => this.onItemClick(item)}
       />
     );
   }
 
-  private onItemClick = async (itemId) => {
-    console.log(`onItemClick: ${itemId}`);
-
-    appStore.profileModal.setUser(this.state.friends[0]);
+  private onItemClick = async (item) => {
+    appStore.profileModal.setUser(item);
+    appStore.profileModal.showAddBtn(false);
     appStore.profileModal.open();
   }
 }

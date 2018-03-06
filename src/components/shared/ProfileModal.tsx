@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import LinearGradient from 'react-native-linear-gradient';
 import React, { Component } from 'react';
 import {
@@ -78,9 +79,25 @@ const styles: any = StyleSheet.create({
     color: colors.dodgerBlue,
     fontSize: 16 * ratio,
   },
+  txtFriendAdded: {
+    color: 'white',
+    fontSize: 12 * ratio,
+    backgroundColor: colors.dusk,
+    padding: 4 * ratio,
+  },
+  txtFriendAlreadyAdded: {
+    color: 'red',
+    fontSize: 12 * ratio,
+    backgroundColor: colors.cloudyBlue,
+    padding: 4 * ratio,
+  },
 });
 
 interface ItemState {
+  showAddBtn: boolean;
+  isAdding: boolean;
+  isFriendAdded: boolean;
+  isFriendAlreadyAdded: boolean;
   user: {
     id: string;
     img: Image.propTypes.source;
@@ -104,6 +121,10 @@ class Shared extends Component<ItemProps, ItemState> {
   constructor(props) {
     super(props);
     this.state = {
+      showAddBtn: true,
+      isAdding: false,
+      isFriendAdded: false,
+      isFriendAlreadyAdded: false,
       user: {
         id: '',
         img: null,
@@ -128,15 +149,63 @@ class Shared extends Component<ItemProps, ItemState> {
   }
 
   public open = () => {
-    this.modal.open();
+    this.setState({
+      isFriendAdded: false,
+      isFriendAlreadyAdded: false,
+    }, () => {
+      this.modal.open();
+    });
   }
 
   public close = () => {
     this.modal.close();
   }
 
+  public showAddBtn = (flag: boolean) => {
+    this.setState({ showAddBtn: flag });
+  }
+
   public addFriend = () => {
-    // TODO ADD FRIEND
+    const userData = firebase.auth().currentUser;
+    console.log('onAddFriend');
+    // realtime-database
+    firebase.database().ref(`users/${userData.uid}/friends`)
+    .orderByChild('id')
+    .equalTo(this.state.user.id)
+    .once('value')
+    .then((snapshots) => {
+      if (snapshots.numChildren() === 0) {
+        const newPostKey = firebase.database().ref(`users/${userData.uid}`).child('friends').push().key;
+
+        const updates = {};
+        updates['/users/' + userData.uid + '/friends/' + newPostKey] = {
+          id: this.state.user.id,
+        };
+        firebase.database().ref().update(updates);
+        this.setState({ isFriendAdded: true });
+        return;
+      }
+      this.setState({ isFriendAlreadyAdded: true });
+    });
+
+    // firestore
+    const friendCol = firebase.firestore().collection('users').doc(`${userData.uid}`).collection('friends');
+    friendCol
+    .where('id', '==', this.state.user.id)
+    .get().then((snapshots) => {
+      if (snapshots.size === 0) {
+        friendCol.add({
+          id: this.state.user.id,
+        });
+        this.setState({ isFriendAdded: true });
+        return;
+      }
+      this.setState({ isFriendAlreadyAdded: true });
+    });
+  }
+
+  public deleteFriend = () => {
+    const userData = firebase.auth().currentUser;
   }
 
   public render() {
@@ -163,14 +232,23 @@ class Shared extends Component<ItemProps, ItemState> {
             <Text style={styles.txtDisplayName}>{this.state.user.displayName}</Text>
             <Text style={styles.txtStatusMsg}>{this.state.user.statusMsg}</Text>
           </View>
+          {
+            this.state.isFriendAdded
+             ? <Text style={styles.txtFriendAdded}>{getString('FRIEND_ADDED')}</Text>
+             : this.state.isFriendAlreadyAdded
+               ? <Text style={styles.txtFriendAlreadyAdded}>{getString('FRIEND_ALREADY_ADDED')}</Text>
+               : null
+          }
           <View style={styles.viewBtns}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={this.addFriend}
+              onPress={this.state.showAddBtn ? this.addFriend : this.deleteFriend}
               style={styles.viewBtn}
             >
               <View style={styles.viewBtn}>
-                <Text style={styles.txtBtn}>{getString('ADD_FRIEND')}</Text>
+                <Text style={styles.txtBtn}>{
+                  this.state.showAddBtn ? getString('ADD_FRIEND') : getString('DELETE_FRIEND')
+                }</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.viewBtnDivider}/>

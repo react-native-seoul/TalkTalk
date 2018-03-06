@@ -112,7 +112,6 @@ class Screen extends Component<any, any> {
     const userId = firebase.auth().currentUser.uid;
     if (USE_FIRESTORE) {
       firebase.firestore().collection('users').doc(userId).get().then((doc) => {
-        console.log(doc);
         if (doc.exists) {
           const user = doc.data();
           console.log('user');
