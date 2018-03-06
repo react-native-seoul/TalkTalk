@@ -90,6 +90,7 @@ class Screen extends Component<any, any> {
       const users = [];
       snapshots.forEach((doc) => {
         const user = doc.val();
+        user.id = doc.key;
         if (user.email !== firebase.auth().currentUser.email) {
           users.push(user);
         }
