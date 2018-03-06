@@ -76,6 +76,7 @@ class Screen extends Component<any, any> {
     super(props);
     this.state = {
       isLoading: false,
+      email: '',
     };
   }
 
@@ -95,7 +96,7 @@ class Screen extends Component<any, any> {
               style={{ marginTop: 8 * ratio }}
               txtLabel={getString('EMAIL')}
               txtHint={ getString('EMAIL') }
-              txt={ this.state.pw }
+              txt={ this.state.email }
               onTextChanged={ (text) => this.onTextChanged('EMAIL', text)}
               isPassword={ true }
             />
@@ -127,6 +128,12 @@ class Screen extends Component<any, any> {
 
   private onSendLink = () => {
     console.log('onSendLink');
+    this.setState({
+      isLoading: true,
+    }, async () => {
+      await firebase.auth().sendPasswordResetEmail(this.state.email);
+      this.setState({ isLoading: false });
+    });
   }
 }
 
