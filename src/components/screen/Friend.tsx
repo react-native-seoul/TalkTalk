@@ -3,6 +3,7 @@ import { USE_FIRESTORE } from '@utils/Constants';
 import UserListItem from '@shared/UserListItem';
 import EmptyListItem from '@shared/EmptyListItem';
 import React, { Component } from 'react';
+import update from 'immutability-helper';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -42,29 +43,58 @@ class Screen extends Component<any, any> {
     if (USE_FIRESTORE) {
       firebase.firestore().collection('users')
       .doc(`${userData.uid}`).collection('friends')
-      .orderBy('id', 'asc')
       .onSnapshot((snapshots) => {
-        const friends = [];
+        const friends = this.state.friends;
         if (snapshots.size === 0) {
           this.setState({ friends });
           return;
         }
-        snapshots.forEach((doc) => {
-          let user = doc.data();
-          user.friendId = doc.id;
+        console.log(snapshots.docChanges);
+        snapshots.docChanges.forEach((change) => {
+          let user = change.doc.data();
+          user.friendId = change.doc.id;
           firebase.firestore().collection('users').doc(user.id).onSnapshot((friendSnap) => {
-            user = { ...user, ...friendSnap.data() };
-            friends.push(user);
-            if (snapshots.size === friends.length) {
-              this.setState({ friends });
+            if (change.type === 'added') {
+              user = { ...user, ...friendSnap.data() };
+              friends.push(user);
+              if (snapshots.size === friends.length) {
+                this.setState({ friends });
+                return;
+              }
             }
+
+            if (change.type === 'removed') {
+              const index = this.state.friends.findIndex((el) => {
+                return el.friendId === user.friendId;
+              });
+              console.log(index);
+              this.setState({
+                friends: update(
+                  this.state.friends, {
+                    $splice: [ [ index, 1 ] ],
+                  },
+                ),
+              });
+            }
+
+            // if (change.type === 'modified') {
+            //   const index = this.state.friends.findIndex((el) => {
+            //     return el.friendId === user.friendId;
+            //   });
+            //   this.setState({
+            //     friends: update(
+            //       this.state.friends, {
+            //         [index]: user,
+            //       },
+            //     ),
+            //   });
+            // }
           });
         });
       });
       return;
     }
     firebase.database().ref(`users/${userData.uid}`).child('friends')
-    .orderByChild('id')
     .on('value', (snapshots) => {
       const friends = [];
       if (snapshots.numChildren() === 0) {
