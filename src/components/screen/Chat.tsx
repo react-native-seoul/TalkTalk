@@ -10,7 +10,7 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import { IC_BACK } from '@utils/Icons';
+import { IC_BACK, IC_SMILE } from '@utils/Icons';
 
 import HeaderBack from '@shared/HeaderBack';
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
@@ -28,7 +28,6 @@ const styles: any = StyleSheet.create({
 
     flexDirection: 'column',
     alignItems: 'center',
-
   },
   content: {
     flex: 1,
@@ -52,7 +51,18 @@ const styles: any = StyleSheet.create({
     width: '80%',
     fontSize: 14 * ratio,
     marginRight: 20 * ratio,
-    paddingLeft: 20 * ratio,
+    paddingLeft: 48 * ratio,
+  },
+  touchMenu: {
+    position: 'absolute',
+    left: 10,
+    height: '100%',
+    minWidth: 20 * ratio,
+    justifyContent: 'center',
+  },
+  imgMenu: {
+    width: 20 * ratio,
+    height: 20 * ratio,
   },
   btnSend: {
     right: 8 * ratio,
@@ -131,6 +141,12 @@ class Screen extends Component<any, any> {
               placeholder={ getString('WRITE_MESSAGE') }
               placeholderTextColor={ colors.cloudyBlue }
             />
+            <TouchableOpacity
+              style={styles.touchMenu}
+              onPress={this.showMenu}
+            >
+              <Image style={styles.imgMenu} source={IC_SMILE}/>
+            </TouchableOpacity>
             <Button
               isLoading={this.state.isLoading}
               onPress={this.sendChat}
@@ -153,6 +169,10 @@ class Screen extends Component<any, any> {
 
   private sendChat = () => {
     console.log('sendChat');
+  }
+
+  private showMenu = () => {
+    console.log('showMenu');
   }
 
   private goBack = () => {
