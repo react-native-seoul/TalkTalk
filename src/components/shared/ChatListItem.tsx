@@ -15,7 +15,7 @@ import { IC_MASK } from '@utils/Icons';
 const styles: any = StyleSheet.create({
   wrapperPeer: {
     minHeight: 48 * ratio,
-    width: screenWidth,
+    width: '100%',
     marginTop: 20 * ratio,
 
     flexDirection: 'row',

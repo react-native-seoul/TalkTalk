@@ -13,10 +13,12 @@ import { IC_MASK } from '@utils/Icons';
 import { ratio, colors, screenWidth } from '@utils/Styles';
 
 const styles: any = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
   wrapper: {
     backgroundColor: 'white',
     height: 80 * ratio,
-    width: screenWidth,
     borderBottomWidth: 1,
     borderColor: 'rgb(247,248,251)',
 
@@ -30,9 +32,9 @@ const styles: any = StyleSheet.create({
     height: 40 * ratio,
   },
   viewContent: {
-    width: 260 * ratio,
-
     flexDirection: 'column',
+    flex: 1,
+    paddingRight: 20 * ratio,
   },
   viewTop: {
     flexDirection: 'row',
@@ -101,24 +103,26 @@ class Shared extends Component<ItemProps, any> {
 
   public render() {
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={this.props.onPress}
-      >
-        <View style={this.props.style}>
-          <Image style={styles.img} source={this.props.item.img ? this.props.item.img : IC_MASK}/>
-          <View style={styles.viewContent}>
-            <View style={styles.viewTop}>
-              <Text style={styles.txtDisplayName}>{this.props.item.displayName}</Text>
-              {this.renderCount()}
-            </View>
-            <View style={styles.viewBottom}>
-              <Text style={styles.txtMsg}>{this.props.item.msg}</Text>
-              <Text style={styles.txtDate}>{moment(this.props.item.date).fromNow()}</Text>
+      <View style={styles.container}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={this.props.onPress}
+        >
+          <View style={this.props.style}>
+            <Image style={styles.img} source={this.props.item.img ? this.props.item.img : IC_MASK}/>
+            <View style={styles.viewContent}>
+              <View style={styles.viewTop}>
+                <Text style={styles.txtDisplayName}>{this.props.item.displayName}</Text>
+                {this.renderCount()}
+              </View>
+              <View style={styles.viewBottom}>
+                <Text style={styles.txtMsg}>{this.props.item.msg}</Text>
+                <Text style={styles.txtDate}>{moment(this.props.item.date).fromNow()}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   }
 

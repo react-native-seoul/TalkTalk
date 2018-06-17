@@ -20,6 +20,7 @@ const styles: any = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -52,15 +53,19 @@ class Screen extends Component<any, any> {
     return (
       <View style={styles.container}>
         <FlatList
-          contentContainerStyle={[
-            {
-              flex: 1,
-              alignSelf: 'stretch',
-              marginTop: 16 * ratio,
-              alignItems: this.state.messages.length === 0 ? 'center' : 'flex-start',
-              justifyContent: this.state.messages.length === 0 ? 'center' : 'flex-start',
-            },
-          ]}
+          style={{
+            alignSelf: 'stretch',
+          }}
+          contentContainerStyle={
+            this.state.messages.length === 0
+              ? {
+                flex: 1,
+                alignSelf: 'stretch',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }
+              : null
+          }
           keyExtractor={(item, index) => index.toString()}
           data={this.state.messages}
           renderItem={this.renderItem}

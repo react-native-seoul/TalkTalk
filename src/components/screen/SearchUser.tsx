@@ -120,13 +120,18 @@ class Screen extends Component<any, any> {
           <Image source={IC_SEARCH} style={styles.imgSearch}/>
         </View>
         <FlatList
-          contentContainerStyle={[
-            {
-              flex: 1,
-              alignItems: this.state.users.length === 0 ? 'center' : 'flex-start',
-              justifyContent: this.state.users.length === 0 ? 'center' : 'flex-start',
-            },
-          ]}
+          style={{
+            alignSelf: 'stretch',
+          }}
+          contentContainerStyle={
+            this.state.users.length === 0
+              ? {
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }
+              : null
+          }
           keyExtractor={(item, index) => index.toString()}
           data={this.state.users}
           renderItem={this.renderItem}

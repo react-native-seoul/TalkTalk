@@ -12,10 +12,12 @@ import { IC_MASK } from '@utils/Icons';
 import { ratio, colors, screenWidth } from '@utils/Styles';
 
 const styles: any = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
   wrapper: {
     backgroundColor: 'white',
     height: 80 * ratio,
-    width: screenWidth,
     borderBottomWidth: 1,
     borderColor: 'rgb(247,248,251)',
 
@@ -71,20 +73,22 @@ class Shared extends Component<ItemProps, any> {
 
   public render() {
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={this.props.onPress}
-      >
-        <View style={this.props.style}>
-          <Image style={styles.img} source={this.props.item.img ? this.props.item.img : IC_MASK}/>
-          <Text style={styles.txt}>{this.props.item.displayName}</Text>
-          {
-            this.props.item.statusMsg
-              ? <Text style={styles.txtRight}>{this.props.item.statusMsg}</Text>
-              : null
-          }
-        </View>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={this.props.onPress}
+        >
+          <View style={this.props.style}>
+            <Image style={styles.img} source={this.props.item.img ? this.props.item.img : IC_MASK}/>
+            <Text style={styles.txt}>{this.props.item.displayName}</Text>
+            {
+              this.props.item.statusMsg
+                ? <Text style={styles.txtRight}>{this.props.item.statusMsg}</Text>
+                : null
+            }
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
