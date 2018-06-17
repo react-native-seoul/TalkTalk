@@ -47,10 +47,9 @@ class Screen extends Component<any, any> {
       .onSnapshot((snapshots) => {
         const friends = this.state.friends;
         if (snapshots.size === 0) {
-          this.setState({ friends });
+          this.setState({ friends: [] });
           return;
         }
-        console.log(snapshots.docChanges());
         snapshots.docChanges().forEach((change) => {
           let user = change.doc.data();
           console.log('user', user);
