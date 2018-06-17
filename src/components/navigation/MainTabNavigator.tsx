@@ -3,7 +3,15 @@ import React from 'react';
 import { Platform, Image, View, Text, AsyncStorage, BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { getString } from '@STRINGS';
-import { TabNavigator, TabBarTop, NavigationActions } from 'react-navigation';
+import { createMaterialTopTabNavigator, NavigationActions } from 'react-navigation';
+import {
+  StackActions,
+  TabNavigator,
+  TabBarTop,
+  createBottomTabNavigator,
+  NavigationActions,
+} from 'react-navigation';
+
 import LinearGradient from 'react-native-linear-gradient';
 import { IC_MASK, IC_ADD } from '@utils/Icons';
 
@@ -46,6 +54,14 @@ const styles: any = StyleSheet.create({
     width: 60 * ratio,
     height: 60 * ratio,
   },
+  txt: {
+    color: colors.dusk,
+    fontSize: 12 * ratio,
+  },
+  txtSub: {
+    color: colors.dodgerBlue,
+    fontSize: 12 * ratio,
+  },
 });
 
 @observer
@@ -63,7 +79,7 @@ class MainTabNavigator extends React.Component<any, any> {
   }
 
   public render() {
-    const Navigator = TabNavigator(
+    const Navigator = createMaterialTopTabNavigator(
       {
         Friend: { screen: Friend },
         Message: { screen: Message },
@@ -77,16 +93,12 @@ class MainTabNavigator extends React.Component<any, any> {
             const { routeName } = navigation.state;
             switch (routeName) {
               case 'Friend':
-                return `${getString('FRIEND')} 24`;
+                return <Text style={styles.txt}>{getString('FRIEND')}  <Text style={styles.txtSub}>24</Text></Text>;
               case 'Message':
-                return `${getString('MESSAGE')} 8`;
-              default:
-                return '';
+                return <Text style={styles.txt}>{getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text></Text>;
             }
           },
         }),
-        tabBarComponent: TabBarTop,
-        tabBarPosition: 'top',
         animationEnabled: false,
         swipeEnabled: true,
         tabBarOptions: {

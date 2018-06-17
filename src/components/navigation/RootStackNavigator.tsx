@@ -1,9 +1,9 @@
-import SplashScreen from 'react-native-splash-screen';
 import firebase from 'firebase';
 import React from 'react';
 import { AsyncStorage, View, Platform, StyleSheet } from 'react-native';
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+// import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
 import MainTabNavigator from './MainTabNavigator';
 import Login from '@screen/Login';
@@ -40,7 +40,6 @@ class RootNavigator extends React.Component<any, IState> {
   public initPage = async (startPage: string) => {
     console.log('startPage: ' + startPage);
     this.setState({ startPage });
-    SplashScreen.hide();
   }
 
   public render() {
@@ -63,13 +62,13 @@ class RootNavigator extends React.Component<any, IState> {
       statusBarStyle: 'light-content',
       transitionConfig: () => ({ screenInterpolator:
         appStore.rootNavigatorActionHorizontal
-          ? CardStackStyleInterpolator.forHorizontal
-          : CardStackStyleInterpolator.forVertical,
+          ? StackViewStyleInterpolator.forHorizontal
+          : StackViewStyleInterpolator.forVertical,
       }),
     };
 
     // FIXED: Current fix for navigating twice
-    const RootStackNavigator = StackNavigator(routeConfig, navigatorConfig);
+    const RootStackNavigator = createStackNavigator(routeConfig, navigatorConfig);
     // if (Platform.OS === 'ios') {
     //   const navigateOnce = (getStateForAction) => (action, state) => {
     //     const { type, routeName } = action;

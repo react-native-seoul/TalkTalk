@@ -50,9 +50,10 @@ class Screen extends Component<any, any> {
           this.setState({ friends });
           return;
         }
-        console.log(snapshots.docChanges);
-        snapshots.docChanges.forEach((change) => {
+        console.log(snapshots.docChanges());
+        snapshots.docChanges().forEach((change) => {
           let user = change.doc.data();
+          console.log('user', user);
           user.friendId = change.doc.id;
           firebase.firestore().collection('users').doc(user.id).onSnapshot((friendSnap) => {
             if (change.type === 'added') {
