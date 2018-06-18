@@ -50,7 +50,7 @@ const styles: any = StyleSheet.create({
   },
   wrapperSelf: {
     minHeight: 48 * ratio,
-    width: screenWidth,
+    width: '100%',
     marginTop: 20 * ratio,
 
     flexDirection: 'row',

@@ -9,6 +9,7 @@ import {
   FlatList,
   TextInput,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { IC_BACK, IC_SMILE } from '@utils/Icons';
 
@@ -81,13 +82,24 @@ const styles: any = StyleSheet.create({
     paddingHorizontal: 5 * ratio,
     paddingVertical: 10 * ratio,
   },
+  viewMenu: {
+    height: 258,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'green',
+  },
 });
 
 class Screen extends Component<any, any> {
+  private keyboardDidShowListener: any;
+  private keyboardDidHideListener: any;
+
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
+      showMenu: false,
       chats: [
         {
           id: '0',
@@ -109,6 +121,14 @@ class Screen extends Component<any, any> {
     };
   }
 
+  public componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+  }
+
+  public componentWillUnmount() {
+    Keyboard.removeListener(this.keyboardDidShowListener);
+  }
+
   public render() {
     return (
       <View style={styles.container}>
@@ -121,13 +141,18 @@ class Screen extends Component<any, any> {
           style={ styles.content }
         >
           <FlatList
-            contentContainerStyle={[
-              {
-                flex: 1,
-                alignItems: this.state.chats.length === 0 ? 'center' : 'flex-start',
-                justifyContent: this.state.chats.length === 0 ? 'center' : 'flex-start',
-              },
-            ]}
+            style={{
+              alignSelf: 'stretch',
+            }}
+            contentContainerStyle={
+              this.state.chats.length === 0
+                ? {
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }
+                : null
+            }
             keyExtractor={(item, index) => index.toString()}
             data={this.state.chats}
             renderItem={this.renderItem}
@@ -155,9 +180,18 @@ class Screen extends Component<any, any> {
             >{getString('SEND')}</Button>
           </View>
         </KeyboardAvoidingView>
+        {
+          this.state.showMenu
+            ? <View style={styles.viewMenu}/>
+            : null
+        }
       </View>
     );
   }
+
+  private _keyboardDidShow(e) {
+    console.log('keyboardHeight', e.endCoordinates.height);
+}
 
   private renderItem = ({ item }) => {
     return (
@@ -173,6 +207,9 @@ class Screen extends Component<any, any> {
 
   private showMenu = () => {
     console.log('showMenu');
+    this.setState({
+      showMenu: !this.state.showMenu,
+    });
   }
 
   private goBack = () => {
