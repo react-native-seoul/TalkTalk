@@ -2,7 +2,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { strings } from '@STRINGS';
 import firebase, { firestore } from 'firebase';
-import { firebaseConfig } from '@config';
+import firebaseConfig from '@config';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 // import { observer } from 'mobx-react/native';
 import React from 'react';

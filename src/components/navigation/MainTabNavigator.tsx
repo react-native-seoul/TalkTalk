@@ -64,8 +64,50 @@ const styles: any = StyleSheet.create({
   },
 });
 
+const Navigator = createMaterialTopTabNavigator(
+  {
+    Friend: { screen: Friend },
+    Message: { screen: Message },
+  },
+  {
+    navigationOptions: ({ navigation, screenProps }) => ({
+      header: null,
+      headerMode: 'none',
+      tabBarVisible: true,
+      tabBarLabel: () => {
+        const { routeName } = navigation.state;
+        switch (routeName) {
+          case 'Friend':
+            return <Text style={styles.txt}>{getString('FRIEND')}  <Text style={styles.txtSub}>24</Text></Text>;
+          case 'Message':
+            return <Text style={styles.txt}>{getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text></Text>;
+        }
+      },
+    }),
+    animationEnabled: false,
+    swipeEnabled: true,
+    tabBarOptions: {
+      activeTintColor: 'rgb(12,157,197)',
+      inactiveTintColor: 'black',
+      indicatorStyle: {
+        backgroundColor: 'rgb(102,134,205)',
+      },
+      labelStyle: {
+        fontSize: 12 * ratio,
+      },
+      tabStyle: {
+        height: 48 * ratio,
+      },
+      style: {
+        backgroundColor: 'white',
+      },
+    },
+  },
+);
+
 @observer
 class MainTabNavigator extends React.Component<any, any> {
+  private static router = Navigator.router;
   public backButtonListener: any;
 
   public async componentDidMount() {
@@ -79,46 +121,6 @@ class MainTabNavigator extends React.Component<any, any> {
   }
 
   public render() {
-    const Navigator = createMaterialTopTabNavigator(
-      {
-        Friend: { screen: Friend },
-        Message: { screen: Message },
-      },
-      {
-        navigationOptions: ({ navigation, screenProps }) => ({
-          header: null,
-          headerMode: 'none',
-          tabBarVisible: true,
-          tabBarLabel: () => {
-            const { routeName } = navigation.state;
-            switch (routeName) {
-              case 'Friend':
-                return <Text style={styles.txt}>{getString('FRIEND')}  <Text style={styles.txtSub}>24</Text></Text>;
-              case 'Message':
-                return <Text style={styles.txt}>{getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text></Text>;
-            }
-          },
-        }),
-        animationEnabled: false,
-        swipeEnabled: true,
-        tabBarOptions: {
-          activeTintColor: 'rgb(12,157,197)',
-          inactiveTintColor: 'black',
-          indicatorStyle: {
-            backgroundColor: 'rgb(102,134,205)',
-          },
-          labelStyle: {
-            fontSize: 12 * ratio,
-          },
-          tabStyle: {
-            height: 48 * ratio,
-          },
-          style: {
-            backgroundColor: 'white',
-          },
-        },
-      },
-    );
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -140,7 +142,7 @@ class MainTabNavigator extends React.Component<any, any> {
             <Image style={styles.imgHeaderRight} source={IC_ADD}/>
           </TouchableOpacity>
         </LinearGradient>
-        <Navigator/>
+        <Navigator navigation={this.props.navigation}/>
       </View>
     );
   }
