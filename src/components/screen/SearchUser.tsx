@@ -64,6 +64,7 @@ class Screen extends Component<any, any> {
   }
 
   public componentDidMount() {
+    console.log('componentDidMount', 'SearchUser');
     /**
      * get all the users
      */

@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "talktalk.app"
-               BlueprintName = "talktalk"
-               ReferencedContainer = "container:talktalk.xcodeproj">
+               BuildableName = "TalkTalk.app"
+               BlueprintName = "TalkTalk"
+               ReferencedContainer = "container:TalkTalk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "talktalkTests.xctest"
-               BlueprintName = "talktalkTests"
-               ReferencedContainer = "container:talktalk.xcodeproj">
+               BuildableName = "TalkTalkTests.xctest"
+               BlueprintName = "TalkTalkTests"
+               ReferencedContainer = "container:TalkTalk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "talktalkTests.xctest"
-               BlueprintName = "talktalkTests"
-               ReferencedContainer = "container:talktalk.xcodeproj">
+               BuildableName = "TalkTalkTests.xctest"
+               BlueprintName = "TalkTalkTests"
+               ReferencedContainer = "container:TalkTalk.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "talktalk.app"
-            BlueprintName = "talktalk"
-            ReferencedContainer = "container:talktalk.xcodeproj">
+            BuildableName = "TalkTalk.app"
+            BlueprintName = "TalkTalk"
+            ReferencedContainer = "container:TalkTalk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "talktalk.app"
-            BlueprintName = "talktalk"
-            ReferencedContainer = "container:talktalk.xcodeproj">
+            BuildableName = "TalkTalk.app"
+            BlueprintName = "TalkTalk"
+            ReferencedContainer = "container:TalkTalk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "talktalk.app"
-            BlueprintName = "talktalk"
-            ReferencedContainer = "container:talktalk.xcodeproj">
+            BuildableName = "TalkTalk.app"
+            BlueprintName = "TalkTalk"
+            ReferencedContainer = "container:TalkTalk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

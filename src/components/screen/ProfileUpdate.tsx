@@ -109,6 +109,7 @@ class Screen extends Component<any, any> {
   }
 
   public componentDidMount() {
+    console.log('componentDidMount', 'ProfileUpdate', firebase.auth().currentUser);
     const userId = firebase.auth().currentUser.uid;
     if (USE_FIRESTORE) {
       firebase.firestore().collection('users').doc(userId).get().then((doc) => {

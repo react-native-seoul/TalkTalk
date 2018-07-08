@@ -16,6 +16,7 @@ class ObservableListStore {
   @observable private _rootNavigatorParams: object;
   @observable private _rootNavigatorActionHorizontal: boolean;
   @observable private _user: User;
+  @observable private _firebaseUser: any;
 
   constructor() {
     this._rootNavigatorActionHorizontal = true;
@@ -62,6 +63,14 @@ class ObservableListStore {
 
   public set user(value: User) {
     this._user = value;
+  }
+
+  public get firebaseUser(): any {
+    return this._firebaseUser;
+  }
+
+  public set firebaseUser(value: any) {
+    this._firebaseUser = value;
   }
 
   public navigateRoot = (slideHorizontal: boolean, routeName: string, params?: object) => {
