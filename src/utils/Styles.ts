@@ -23,7 +23,7 @@ export const screenWidth = width;
 export const screenHeight = height;
 export const ratio = calRatio / (360 / 9);
 console.log(`ratio: ${ratio}`);
-export const statusBarHeight = getStatusBarHeight(false); // false to get android height.
+export const statusBarHeight = getStatusBarHeight(true); // false to get android height.
 
 interface Icolors {
   dodgerBlue: string;
