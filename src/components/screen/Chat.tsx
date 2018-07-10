@@ -126,7 +126,7 @@ class Screen extends Component<any, any> {
   }
 
   public componentWillUnmount() {
-    Keyboard.removeListener(this.keyboardDidShowListener);
+    this.keyboardDidShowListener.remove();
   }
 
   public render() {
@@ -207,6 +207,7 @@ class Screen extends Component<any, any> {
 
   private showMenu = () => {
     console.log('showMenu');
+    Keyboard.dismiss();
     this.setState({
       showMenu: !this.state.showMenu,
     });

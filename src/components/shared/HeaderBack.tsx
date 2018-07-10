@@ -5,6 +5,10 @@ import {
   Image,
   Text,
   View,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+  ImageSourcePropType,
 } from 'react-native';
 
 import { screenWidth, ratio, colors } from '@utils/Styles';
@@ -31,10 +35,10 @@ const styles: any = StyleSheet.create({
 });
 
 interface ItemProps {
-  style?: View.propTypes.style;
-  txtStyle?: Text.propTypes.style;
-  imgStyle?: Image.propTypes.style;
-  imgSrc?: Image.propTypes.source;
+  style?: ViewStyle;
+  txtStyle?: TextStyle;
+  imgStyle?: ImageStyle;
+  imgSrc?: ImageSourcePropType;
   onBackPressed?: () => void;
 }
 

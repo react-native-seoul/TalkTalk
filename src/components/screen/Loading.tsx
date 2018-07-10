@@ -66,7 +66,7 @@ class Screen extends Component<any, any> {
           iterationCount={'infinite'}
           direction='alternate'
           style={{
-            color: colors.waterBlue,
+            color: colors.dodgerBlue,
             fontSize: 16 * ratio,
           }}
         >

@@ -9,7 +9,7 @@ import {
 
 import { ratio, colors } from '@utils/Styles';
 
-class Shared extends Component<ItemProps, any> {
+class Shared extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {

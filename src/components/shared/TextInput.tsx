@@ -6,6 +6,9 @@ import {
   Text,
   TextInput,
   View,
+  ViewStyle,
+  TextStyle,
+  TextInputProperties,
 } from 'react-native';
 
 import { ratio, colors } from '@utils/Styles';
@@ -57,11 +60,11 @@ const styles: any = StyleSheet.create({
 });
 
 interface ItemProps {
-  style?: View.propTypes.style;
-  labelStyle?: Text.propTypes.style;
-  labelStyleFocus?: Text.propTypes.style;
+  style?: ViewStyle;
+  labelStyle?: TextStyle;
+  labelStyleFocus?: TextStyle;
   placeholderTextColor?: string;
-
+  inputStyle?: TextInputProperties;
   isPassword?: boolean;
   multiline?: boolean;
   txtLabel?: string;

@@ -6,6 +6,8 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ViewStyle,
+  ImageSourcePropType,
 } from 'react-native';
 
 import { IC_MASK } from '@utils/Icons';
@@ -49,13 +51,13 @@ const styles: any = StyleSheet.create({
 });
 
 interface IItem {
-  img: Image.propTypes.source;
+  img: ImageSourcePropType;
   displayName: string;
   statusMsg: string;
 }
 
 interface ItemProps {
-  style?: View.propTypes.style;
+  style?: ViewStyle;
   item: IItem;
   onPress?: () => void;
 }

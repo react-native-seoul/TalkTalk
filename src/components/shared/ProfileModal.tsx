@@ -8,6 +8,8 @@ import {
   Image,
   Text,
   View,
+  ViewStyle,
+  ImageSourcePropType,
 } from 'react-native';
 
 import { IC_MASK } from '@utils/Icons';
@@ -100,14 +102,15 @@ interface ItemState {
   isFriendAlreadyAdded: boolean;
   user: {
     id: string;
-    img: Image.propTypes.source;
+    friendId?: string;
+    img: ImageSourcePropType;
     displayName: string;
     statusMsg: string;
   };
 }
 
 interface ItemProps {
-  style?: View.propTypes.style;
+  style?: ViewStyle;
   onChat?: () => void;
 }
 
@@ -242,7 +245,7 @@ class Shared extends Component<ItemProps, ItemState> {
           <View style={styles.view}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={this.goToUpdateProfile}
+              // onPress={this.goToUpdateProfile}
             >
               <Image style={styles.img} source={this.state.user.img ? this.state.user.img : IC_MASK}/>
             </TouchableOpacity>

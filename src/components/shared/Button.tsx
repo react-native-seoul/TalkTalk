@@ -6,7 +6,12 @@ import {
   Image,
   Text,
   View,
+  TextStyle,
+  ViewStyle,
+  ImageStyle,
+  ImageSourcePropType,
 } from 'react-native';
+
 // import NativeButton from 'apsl-react-native-button';
 
 import { ratio } from '@utils/Styles';
@@ -52,11 +57,11 @@ interface ItemProps {
   isLoading?: boolean;
   isDisabled?: boolean;
   onPress?: () => void;
-  style?: View.propTypes.style;
-  disabledStyle?: View.propTypes.style;
-  textStyle?: Text.propTypes.style;
-  imgLeftSrc?: Image.propTypes.source;
-  imgLeftStyle?: Image.propTypes.style;
+  style?: ViewStyle;
+  disabledStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  imgLeftSrc?: ImageSourcePropType;
+  imgLeftStyle?: ImageStyle;
   indicatorColor?: string;
   activeOpacity?: number;
 }
@@ -66,7 +71,6 @@ class Button extends Component<ItemProps, any> {
     isLoading: false,
     isDisabled: false,
     style: styles.btn,
-    textStyle: styles.txt,
     textStyle: styles.txt,
     imgLeftStyle: styles.imgLeft,
     indicatorColor: 'white',

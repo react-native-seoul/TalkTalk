@@ -78,7 +78,7 @@ const styles: any = StyleSheet.create({
 interface IState {
   isRegistering: boolean;
   email: string;
-  password: string;
+  pw: string;
   displayName: string;
   statusMsg: string;
 }
@@ -154,14 +154,13 @@ class Screen extends Component<any, IState> {
     this.setState({ isRegistering: true }, async () => {
       try {
         const userData = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pw);
-        console.log(userData);
-        userData.updateProfile({
+        userData.user.updateProfile({
           displayName: this.state.displayName,
           photoURL: '',
         });
 
         // realtime-database
-        firebase.database().ref('users').child(`${userData.uid}`).set({
+        firebase.database().ref('users').child(`${userData.user.uid}`).set({
           displayName: this.state.displayName,
           email: this.state.email,
           photoURL: '',
@@ -169,7 +168,7 @@ class Screen extends Component<any, IState> {
         });
 
         // firestore
-        firebase.firestore().collection('users').doc(`${userData.uid}`).set({
+        firebase.firestore().collection('users').doc(`${userData.user.uid}`).set({
           displayName: this.state.displayName,
           email: this.state.email,
           photoURL: '',
@@ -178,7 +177,6 @@ class Screen extends Component<any, IState> {
       } catch (err) {
         this.setState({ isRegistering: false });
         Alert.alert(getString('ERROR'), err.message);
-        return false;
       }
     });
 
