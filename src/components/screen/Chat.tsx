@@ -82,11 +82,13 @@ const styles: any = StyleSheet.create({
     paddingHorizontal: 5 * ratio,
     paddingVertical: 10 * ratio,
   },
-  viewMenu: {
-    height: 258,
-    width: '100%',
+  viewBottom: {
     position: 'absolute',
     bottom: 0,
+    width: '100%',
+  },
+  viewMenu: {
+    height: 258,
     backgroundColor: 'green',
   },
 });
@@ -122,7 +124,7 @@ class Screen extends Component<any, any> {
   }
 
   public componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardDidShow(e));
   }
 
   public componentWillUnmount() {
@@ -158,31 +160,56 @@ class Screen extends Component<any, any> {
             renderItem={this.renderItem}
             ListEmptyComponent={<EmptyListItem>{getString('NO_CONTENT')}</EmptyListItem>}
           />
-          <View
-            style={styles.viewChat}
-          >
-            <TextInput
-              style={styles.inputChat}
-              placeholder={ getString('WRITE_MESSAGE') }
-              placeholderTextColor={ colors.cloudyBlue }
-            />
-            <TouchableOpacity
-              style={styles.touchMenu}
-              onPress={this.showMenu}
+          {
+            !this.state.showMenu
+              ? <View
+              style={styles.viewChat}
             >
-              <Image style={styles.imgMenu} source={IC_SMILE}/>
-            </TouchableOpacity>
-            <Button
-              isLoading={this.state.isLoading}
-              onPress={this.sendChat}
-              style={styles.btnSend}
-              textStyle={styles.txtSend}
-            >{getString('SEND')}</Button>
-          </View>
+              <TextInput
+                style={styles.inputChat}
+                placeholder={ getString('WRITE_MESSAGE') }
+                placeholderTextColor={ colors.cloudyBlue }
+              />
+              <TouchableOpacity
+                style={styles.touchMenu}
+                onPress={this.showMenu}
+              >
+                <Image style={styles.imgMenu} source={IC_SMILE}/>
+              </TouchableOpacity>
+              <Button
+                isLoading={this.state.isLoading}
+                onPress={this.sendChat}
+                style={styles.btnSend}
+                textStyle={styles.txtSend}
+              >{getString('SEND')}</Button>
+            </View>
+            : null
+          }
         </KeyboardAvoidingView>
         {
           this.state.showMenu
-            ? <View style={styles.viewMenu}/>
+            ? <View style={styles.viewBottom}>
+              <View style={styles.viewChat}>
+                <TextInput
+                  style={styles.inputChat}
+                  placeholder={ getString('WRITE_MESSAGE') }
+                  placeholderTextColor={ colors.cloudyBlue }
+                />
+                <TouchableOpacity
+                  style={styles.touchMenu}
+                  onPress={this.showMenu}
+                >
+                  <Image style={styles.imgMenu} source={IC_SMILE}/>
+                </TouchableOpacity>
+                <Button
+                  isLoading={this.state.isLoading}
+                  onPress={this.sendChat}
+                  style={styles.btnSend}
+                  textStyle={styles.txtSend}
+                >{getString('SEND')}</Button>
+              </View>
+              <View  style={styles.viewMenu}/>
+            </View>
             : null
         }
       </View>
