@@ -54,11 +54,11 @@ const styles: any = StyleSheet.create({
 
 class Screen extends Component<any, any> {
   private profileModal: any;
+  private searchTxt: string = '';
 
   constructor(props) {
     super(props);
     this.state = {
-      searchTxt: '',
       users: [],
     };
   }
@@ -114,9 +114,10 @@ class Screen extends Component<any, any> {
             autoCapitalize='none'
             autoCorrect={false}
             multiline={false}
-            value={this.state.searchTxt}
+            // value={this.searchTxt}
             style={styles.inputSearch}
             onSubmitEditing={this.onSearch}
+            defaultValue={this.searchTxt}
           />
           <Image source={IC_SEARCH} style={styles.imgSearch}/>
         </View>
@@ -163,17 +164,18 @@ class Screen extends Component<any, any> {
   }
 
   private onTxtChanged = (txt) => {
-    this.setState({
-      searchTxt: txt,
-    });
+    this.searchTxt = txt;
+    // this.setState({
+    //   searchTxt: txt,
+    // });
   }
 
   private onSearch = () => {
-    console.log('onSearch: ' + this.state.searchTxt);
+    console.log('onSearch: ' + this.searchTxt);
     if (USE_FIRESTORE) {
       firebase.firestore().collection('users')
-      .where('displayName', '>=', this.state.searchTxt)
-      .where('displayName', '<', `${this.state.searchTxt}\uf8ff`)
+      .where('displayName', '>=', this.searchTxt)
+      .where('displayName', '<', `${this.searchTxt}\uf8ff`)
       .get().then((snapshots) => {
         const users = [];
         snapshots.forEach((doc) => {
@@ -190,8 +192,8 @@ class Screen extends Component<any, any> {
     }
     firebase.database().ref('users')
     .orderByChild('displayName')
-    .startAt(this.state.searchTxt)
-    .endAt(`${this.state.searchTxt}\uf8ff`)
+    .startAt(this.searchTxt)
+    .endAt(`${this.searchTxt}\uf8ff`)
     .once('value')
     .then((snapshots) => {
       const users = [];
