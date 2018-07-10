@@ -219,7 +219,6 @@ class Screen extends Component<any, any> {
       } catch (err) {
         Alert.alert(getString('ERROR'), err.message);
         this.setState({ isLoggingIn: false });
-        return false;
       }
     });
   }
