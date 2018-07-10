@@ -86,6 +86,7 @@ class Screen extends Component<any, any> {
 
   private onItemClick = (itemId) => {
     console.log(`onItemClick: ${itemId}`);
+    this.props.navigation.navigate('Chat', {chatId: itemId});
   }
 }
 
