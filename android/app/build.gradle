@@ -93,6 +93,13 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+configurations.all {
+  resolutionStrategy {
+    force 'org.webkit:android-jsc:r224109'
+  }
+}
+
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
