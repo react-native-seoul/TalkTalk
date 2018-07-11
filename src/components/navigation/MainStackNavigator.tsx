@@ -16,6 +16,7 @@ import NotFound from '@screen/NotFound';
 import { observer } from 'mobx-react/native';
 import ProfileModal from '@shared/ProfileModal';
 import appStore from '@stores/appStore';
+import { colors } from '@utils/Styles';
 
 const routeConfig = {
   Main: { screen: MainTabNavigator, navigationOptions: MainTabNavigationOptions },
@@ -23,6 +24,18 @@ const routeConfig = {
   SearchUser: { screen: SearchUser },
   Chat: { screen: Chat },
   NotFound: { screen: NotFound },
+};
+
+export const commonNavigationOptions = {
+  headerBackTitle: null,
+  headerStyle: {
+    backgroundColor: colors.dodgerBlue, 
+    borderBottomColor: 'transparent', 
+    borderBottomWidth: 0, 
+    elevation: 0,
+  },
+  headerTitleStyle: {color: 'white'},
+  headerTintColor: 'white', 
 };
 
 const navigatorConfig = {
@@ -34,6 +47,7 @@ const navigatorConfig = {
       ? StackViewStyleInterpolator.forHorizontal
       : StackViewStyleInterpolator.forVertical,
   }),
+  navigationOptions: commonNavigationOptions,
 };
 
 // FIXED: Current fix for navigating twice

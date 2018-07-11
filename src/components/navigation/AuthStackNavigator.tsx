@@ -10,6 +10,7 @@ import Login from '@screen/Login';
 import Signup from '@screen/Signup';
 import FindPw from '@screen/FindPw';
 import NotFound from '@screen/NotFound';
+import { commonNavigationOptions } from '@navigation/MainStackNavigator';
 
 const StackNavigator = createStackNavigator(
   {
@@ -20,6 +21,7 @@ const StackNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Login',
+    navigationOptions: commonNavigationOptions,
   },
 );
 
