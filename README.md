@@ -1,3 +1,7 @@
+# TalkTalk Chat App
+![Alt Text](https://firebasestorage.googleapis.com/v0/b/doobooio-30e4d.appspot.com/o/talktalk-rn.gif?alt=media&token=688288b2-1b8f-4ddd-ab69-4c8597bce319)<br/>
+Firebase chatapp with flutter.
+
 # React Native Typescript Starter
 > Specification
 * typescript
