@@ -21,6 +21,7 @@ import appStore from '@stores/appStore';
 
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
+import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   scrollView: {
@@ -139,10 +140,6 @@ class Screen extends Component<any, any> {
     };
   }
 
-  public componentDidMount() {
-    appStore.rootNavigator = this.props.navigation; // needed in startPage
-  }
-
   public render() {
     return (
       <ScrollView style={styles.scrollView}>
@@ -207,11 +204,11 @@ class Screen extends Component<any, any> {
 
   private goToSignup = () => {
     console.log('goToSignup');
-    appStore.navigateRoot(true, 'Signup');
+    NavigationService.navigate('Signup');
     // this.props.navigation.navigate('Signup');
   }
   private goToForgotPw = () => {
-    appStore.navigateRoot(true, 'FindPw');
+    NavigationService.navigate('FindPw');
     console.log('goToForgotPw');
   }
 

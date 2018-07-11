@@ -16,6 +16,7 @@ import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
+import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -122,7 +123,7 @@ class Screen extends Component<any, any> {
   }
 
   private goBack = () => {
-    appStore.navigateRootBack();
+    NavigationService.goBack();
   }
 
   private onSendLink = () => {

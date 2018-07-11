@@ -20,6 +20,7 @@ import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { IC_BACK, IC_SEARCH } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
+import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -142,7 +143,7 @@ class Screen extends Component<any, any> {
   }
 
   private goBack = () => {
-    this.props.navigation.goBack();
+    NavigationService.goBack();
   }
 
   private renderItem = ({ item }) => {

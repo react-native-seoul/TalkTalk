@@ -129,10 +129,6 @@ class MainTabNavigator extends React.Component<any, any> {
   private static router = Navigator.router;
   public backButtonListener: any;
 
-  public async componentDidMount() {
-    appStore.rootNavigator = this.props.navigation;
-  }
-
   public componentWillUnmount() {
     if (Platform.OS === 'android') {
       this.backButtonListener.remove();

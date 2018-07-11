@@ -5,6 +5,7 @@ import { createStackNavigator, StackActions, NavigationActions } from 'react-nav
 // import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
+import NavigationService from '@navigation/NavigationService';
 import MainTabNavigator, {MainTabNavigationOptions} from './MainTabNavigator';
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
@@ -57,7 +58,14 @@ class RootNavigator extends React.Component<any, any> {
   public render() {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
-        <MainStackNavigator navigation={this.props.navigation} />
+        <MainStackNavigator
+          ref={(v) => {
+            if (v) {
+              NavigationService.setTopLevelNavigator(v);
+            }
+          }}
+          navigation={this.props.navigation}
+        />
         <ProfileModal
           ref={(v) => appStore.profileModal = v}
           onChat={this.onChat}
@@ -68,8 +76,7 @@ class RootNavigator extends React.Component<any, any> {
 
   private onChat = () => {
     appStore.profileModal.close();
-    // appStore.navigateRoot(true, 'Chat');
-    this.props.navigation.navigate('Chat');
+    NavigationService.navigate('Chat');
   }
 }
 

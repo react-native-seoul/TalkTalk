@@ -11,17 +11,11 @@ import 'moment/locale/ja';
 
 class ObservableListStore {
   private _profileModal: any;
-  @observable private _rootNavigator: any;
-  @observable private _rootNavigatorPrevParams: object;
-  @observable private _rootNavigatorParams: object;
   @observable private _rootNavigatorActionHorizontal: boolean;
   @observable private _user: User;
-  @observable private _firebaseUser: any;
 
   constructor() {
     this._rootNavigatorActionHorizontal = true;
-    this._rootNavigatorPrevParams = null;
-    this._rootNavigatorParams = null;
     this._user = new User();
   }
 
@@ -33,14 +27,6 @@ class ObservableListStore {
     this._profileModal = value;
   }
 
-  public get rootNavigator(): any {
-    return this._rootNavigator;
-  }
-
-  public set rootNavigator(value: any) {
-    this._rootNavigator = value;
-  }
-
   public get rootNavigatorActionHorizontal(): boolean {
     return this._rootNavigatorActionHorizontal;
   }
@@ -49,54 +35,12 @@ class ObservableListStore {
     this._rootNavigatorActionHorizontal = value;
   }
 
-  public get rootNavigatorParams(): object {
-    return this._rootNavigatorParams;
-  }
-
-  public set rootNavigatorParams(value: object) {
-    this._rootNavigatorParams = value;
-  }
-
   public get user(): User {
     return this._user;
   }
 
   public set user(value: User) {
     this._user = value;
-  }
-
-  public get firebaseUser(): any {
-    return this._firebaseUser;
-  }
-
-  public set firebaseUser(value: any) {
-    this._firebaseUser = value;
-  }
-
-  public navigateRoot = (slideHorizontal: boolean, routeName: string, params?: object) => {
-    console.log('navigateRoot');
-    this._rootNavigatorActionHorizontal = slideHorizontal;
-
-    if (this._rootNavigatorParams) {
-      this._rootNavigatorPrevParams = this._rootNavigatorParams;
-      this._rootNavigatorParams = params;
-    }
-
-    if (this._rootNavigator) {
-      console.log(`navigate: ${routeName}`);
-      this._rootNavigator.navigate(routeName);
-    }
-  }
-
-  public navigateRootBack = () => {
-    console.log('navigateRootBack');
-    this._rootNavigatorParams = this._rootNavigatorPrevParams;
-    this._rootNavigatorPrevParams = null;
-    this._rootNavigator.goBack(null);
-  }
-
-  public navigateRootReset = (resetAction) => {
-    this._rootNavigator.dispatch(resetAction);
   }
 }
 

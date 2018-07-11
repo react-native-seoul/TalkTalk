@@ -13,6 +13,7 @@ import {
 
 import { ratio, colors } from '@utils/Styles';
 import { getString } from '@STRINGS';
+import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -86,7 +87,7 @@ class Screen extends Component<any, any> {
 
   private onItemClick = (itemId) => {
     console.log(`onItemClick: ${itemId}`);
-    this.props.navigation.navigate('Chat', {chatId: itemId});
+    NavigationService.navigate('Chat', {chatId: itemId});
   }
 }
 
