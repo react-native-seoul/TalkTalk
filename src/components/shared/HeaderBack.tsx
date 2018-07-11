@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -71,3 +71,4 @@ class Shared extends Component<ItemProps, any> {
 }
 
 export default Shared;
+*/

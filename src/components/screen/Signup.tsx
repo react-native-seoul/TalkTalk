@@ -23,9 +23,7 @@ import Button from '@shared/Button';
 const styles: any = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: statusBarHeight, // false to get height of android too.
     backgroundColor: 'white',
-
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -84,6 +82,11 @@ interface IState {
 }
 
 class Screen extends Component<any, IState> {
+
+  static navigationOptions = {
+    title: getString('SIGNUP'),
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -98,10 +101,6 @@ class Screen extends Component<any, IState> {
   public render() {
     return (
       <View style={styles.container}>
-        <HeaderBack
-          imgSrc={IC_BACK}
-          onBackPressed={this.goBack}
-        >{getString('SIGNUP')}</HeaderBack>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContainer}
@@ -197,10 +196,6 @@ class Screen extends Component<any, IState> {
         this.setState({ statusMsg: text });
         return;
     }
-  }
-
-  private goBack = () => {
-    appStore.navigateRootBack();
   }
 }
 

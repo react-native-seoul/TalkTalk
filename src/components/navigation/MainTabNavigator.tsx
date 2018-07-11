@@ -46,13 +46,14 @@ const styles: any = StyleSheet.create({
     color: 'white',
     marginLeft: 20 * ratio,
   },
-  touchHeaderRight: {
-    position: 'absolute',
-    right: 0,
-  },
+  // touchHeaderRight: {
+  //   position: 'absolute',
+  //   right: 0,
+  // },
   imgHeaderRight: {
     width: 60 * ratio,
     height: 60 * ratio,
+    tintColor:'black'
   },
   txt: {
     color: colors.dusk,
@@ -71,8 +72,6 @@ const Navigator = createMaterialTopTabNavigator(
   },
   {
     navigationOptions: ({ navigation, screenProps }) => ({
-      header: null,
-      headerMode: 'none',
       tabBarVisible: true,
       tabBarLabel: () => {
         const { routeName } = navigation.state;
@@ -82,7 +81,8 @@ const Navigator = createMaterialTopTabNavigator(
           case 'Message':
             return <Text style={styles.txt}>{getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text></Text>;
         }
-      },
+        return null;
+      }
     }),
     animationEnabled: false,
     swipeEnabled: true,
@@ -105,6 +105,26 @@ const Navigator = createMaterialTopTabNavigator(
   },
 );
 
+export default Navigator;
+
+export const MainTabNavigationOptions = ({navigation}) => ({
+  title: 'Talk Talk',
+  headerLeft: 
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate('ProfileUpdate')}
+    >
+      <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
+    </TouchableOpacity>,
+  headerRight:
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate('SearchUser')}
+    >
+      <Image style={styles.imgHeaderRight} source={IC_ADD}/>
+    </TouchableOpacity>
+});
+/*
 @observer
 class MainTabNavigator extends React.Component<any, any> {
   private static router = Navigator.router;
@@ -156,5 +176,5 @@ class MainTabNavigator extends React.Component<any, any> {
     this.props.navigation.navigate('SearchUser');
   }
 }
-
-export default MainTabNavigator;
+*/
+// export default MainTabNavigator;

@@ -5,7 +5,7 @@ import { createStackNavigator, StackActions, NavigationActions } from 'react-nav
 // import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
-import MainTabNavigator from './MainTabNavigator';
+import MainTabNavigator, {MainTabNavigationOptions} from './MainTabNavigator';
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
 import FindPw from '@screen/FindPw';
@@ -18,7 +18,7 @@ import ProfileModal from '@shared/ProfileModal';
 import appStore from '@stores/appStore';
 
 const routeConfig = {
-  Main: { screen: MainTabNavigator },
+  Main: { screen: MainTabNavigator, navigationOptions: MainTabNavigationOptions },
   ProfileUpdate: { screen: ProfileUpdate },
   SearchUser: { screen: SearchUser },
   Chat: { screen: Chat },
@@ -27,7 +27,6 @@ const routeConfig = {
 
 const navigatorConfig = {
   initialRouteName: 'Main',
-  headerMode: 'none',
   gesturesEnabled: true,
   statusBarStyle: 'light-content',
   transitionConfig: () => ({ screenInterpolator:
@@ -69,7 +68,8 @@ class RootNavigator extends React.Component<any, any> {
 
   private onChat = () => {
     appStore.profileModal.close();
-    appStore.navigateRoot(true, 'Chat');
+    // appStore.navigateRoot(true, 'Chat');
+    this.props.navigation.navigate('Chat');
   }
 }
 

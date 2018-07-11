@@ -22,7 +22,6 @@ import Button from '@shared/Button';
 const styles: any = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: statusBarHeight, // false to get height of android too.
     backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'center',
@@ -98,6 +97,10 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
+  static navigationOptions = {
+    title: getString('MY_PROFILE')
+  }
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -141,10 +144,6 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <View style={styles.container}>
-        <HeaderBack
-          imgSrc={IC_BACK}
-          onBackPressed={this.goBack}
-        >{getString('MY_PROFILE')}</HeaderBack>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContainer}
