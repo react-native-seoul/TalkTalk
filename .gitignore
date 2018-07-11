@@ -54,3 +54,5 @@ buck-out/
 */fastlane/screenshots
 
 config.js
+
+package-lock.json
