@@ -13,8 +13,8 @@
     "no-duplicate-variable": true,
     "no-eval": true,
     "no-internal-module": true,
-    "no-trailing-whitespace": true,
-    "no-var-requires": false, // to use require statment in ts
+    "no-trailing-whitespace": false,
+    "no-var-requires": true, // to use require statment in ts
     "semicolon": true,
     "object-literal-sort-keys": false,
     "quotemark": [true, "single"],

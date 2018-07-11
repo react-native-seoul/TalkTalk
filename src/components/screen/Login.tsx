@@ -126,7 +126,7 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  static navigationOptions = {
+  private static navigationOptions = {
     header: null,
   };
 

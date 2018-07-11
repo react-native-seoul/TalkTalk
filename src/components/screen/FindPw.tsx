@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
-import HeaderBack from '@shared/HeaderBack';
 import { IC_BACK } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
@@ -72,8 +71,7 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  
-  static navigationOptions = {
+  private static navigationOptions = {
     title: getString('FIND_PW'),
   };
 

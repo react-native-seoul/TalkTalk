@@ -19,7 +19,6 @@ import {
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { IC_BACK, IC_SEARCH } from '@utils/Icons';
 import { getString } from '@STRINGS';
-import HeaderBack from '@shared/HeaderBack';
 import appStore from '@stores/appStore';
 
 const styles: any = StyleSheet.create({
@@ -52,10 +51,10 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  static navigationOptions = {
-    // title: getString('Search')
-  }
-  
+  private static navigationOptions = {
+    // title: getString('Search'),
+  };
+
   private profileModal: any;
   private searchTxt: string = '';
 

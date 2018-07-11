@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
-import HeaderBack from '@shared/HeaderBack';
 import { IC_BACK, IC_MASK } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
@@ -97,10 +96,10 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  static navigationOptions = {
-    title: getString('MY_PROFILE')
-  }
-  
+  private static navigationOptions = {
+    title: getString('MY_PROFILE'),
+  };
+
   constructor(props) {
     super(props);
     this.state = {

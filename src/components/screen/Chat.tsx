@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import { IC_BACK, IC_SMILE } from '@utils/Icons';
 
-import HeaderBack from '@shared/HeaderBack';
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { getString } from '@STRINGS';
 
@@ -93,7 +92,7 @@ const styles: any = StyleSheet.create({
 
 class Screen extends Component<any, any> {
 
-  static navigationOptions = {
+  private static navigationOptions = {
     title: getString('HELLO'),
   };
 

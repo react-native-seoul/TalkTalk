@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-require('firebase/firestore');
+import '@firebase/firestore';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
-import HeaderBack from '@shared/HeaderBack';
 import { IC_BACK } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
@@ -83,7 +82,7 @@ interface IState {
 
 class Screen extends Component<any, IState> {
 
-  static navigationOptions = {
+  private static navigationOptions = {
     title: getString('SIGNUP'),
   };
 

@@ -3,13 +3,12 @@ import React from 'react';
 import { Platform, Image, View, Text, AsyncStorage, BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { getString } from '@STRINGS';
-import { createMaterialTopTabNavigator, NavigationActions } from 'react-navigation';
 import {
   StackActions,
   TabNavigator,
   TabBarTop,
-  createBottomTabNavigator,
-  NavigationActions,
+  NavigationAction,
+  createMaterialTopTabNavigator,
 } from 'react-navigation';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -53,7 +52,7 @@ const styles: any = StyleSheet.create({
   imgHeaderRight: {
     width: 60 * ratio,
     height: 60 * ratio,
-    tintColor:'black'
+    tintColor: 'black',
   },
   txt: {
     color: colors.dusk,
@@ -82,7 +81,7 @@ const Navigator = createMaterialTopTabNavigator(
             return <Text style={styles.txt}>{getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text></Text>;
         }
         return null;
-      }
+      },
     }),
     animationEnabled: false,
     swipeEnabled: true,
@@ -122,7 +121,7 @@ export const MainTabNavigationOptions = ({navigation}) => ({
       onPress={() => navigation.navigate('SearchUser')}
     >
       <Image style={styles.imgHeaderRight} source={IC_ADD}/>
-    </TouchableOpacity>
+    </TouchableOpacity>,
 });
 /*
 @observer
