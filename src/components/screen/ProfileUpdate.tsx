@@ -17,7 +17,6 @@ import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
-import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -217,7 +216,7 @@ class Screen extends Component<any, any> {
           statusMsg: this.state.statusMsg,
         }, { merge: true });
 
-        NavigationService.goBack();
+        this.props.navigation.goBack();
       } catch (err) {
         this.setState({ isUpdating: false });
       }
@@ -233,10 +232,6 @@ class Screen extends Component<any, any> {
         this.setState({ statusMsg: text });
         return;
     }
-  }
-
-  private goBack = () => {
-    NavigationService.goBack();
   }
 
   private onPressImg = () => {
