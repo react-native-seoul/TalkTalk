@@ -5,7 +5,6 @@ import { createStackNavigator, StackActions, NavigationActions } from 'react-nav
 // import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
-import NavigationService from '@navigation/NavigationService';
 import MainTabNavigator from './MainTabNavigator';
 import Login from '@screen/Login';
 import Signup from '@screen/Signup';
@@ -24,21 +23,4 @@ const StackNavigator = createStackNavigator(
   },
 );
 
-class AuthStackNavigator extends React.Component<any, any> {
-  private static router = StackNavigator.router;
-
-  public render() {
-    return (
-      <StackNavigator
-        ref={(v) => {
-          if (v) {
-            NavigationService.setTopLevelNavigator(v);
-          }
-        }}
-        navigation={this.props.navigation}
-      />
-    );
-  }
-}
-
-export default AuthStackNavigator;
+export default StackNavigator;

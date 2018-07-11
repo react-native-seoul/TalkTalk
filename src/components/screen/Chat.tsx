@@ -19,7 +19,6 @@ import { getString } from '@STRINGS';
 import Button from '@shared/Button';
 import ChatListItem from '@shared/ChatListItem';
 import EmptyListItem from '@shared/EmptyListItem';
-import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -240,7 +239,7 @@ class Screen extends Component<any, any> {
   }
 
   private goBack = () => {
-    NavigationService.goBack();
+    this.props.navigation.goBack();
   }
 }
 

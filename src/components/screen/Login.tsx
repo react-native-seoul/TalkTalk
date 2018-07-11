@@ -21,7 +21,6 @@ import appStore from '@stores/appStore';
 
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
-import NavigationService from '@navigation/NavigationService';
 
 const styles: any = StyleSheet.create({
   scrollView: {
@@ -204,11 +203,11 @@ class Screen extends Component<any, any> {
 
   private goToSignup = () => {
     console.log('goToSignup');
-    NavigationService.navigate('Signup');
+    this.props.navigation.navigate('Signup');
     // this.props.navigation.navigate('Signup');
   }
   private goToForgotPw = () => {
-    NavigationService.navigate('FindPw');
+    this.props.navigation.navigate('FindPw');
     console.log('goToForgotPw');
   }
 
