@@ -21,6 +21,7 @@ import appStore from '@stores/appStore';
 
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
+import StatusBar from '@shared/StatusBar';
 
 const styles: any = StyleSheet.create({
   scrollView: {
@@ -142,6 +143,7 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <ScrollView style={styles.scrollView}>
+        <StatusBar isDarkContent={true}/>
         <View style={styles.container}>
           <View style={styles.iconWrapper}>
             <Image style={styles.icon} source={IC_ICON}/>

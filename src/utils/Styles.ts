@@ -31,6 +31,7 @@ interface Icolors {
   blueyGray: string;
   cloudyBlue: string;
   paleGray: string;
+  darkBlue: string;
 }
 
 export const colors: Icolors = {
@@ -39,4 +40,5 @@ export const colors: Icolors = {
   blueyGray: 'rgb(134,154,183)',
   cloudyBlue: 'rgb(175,194,219)',
   paleGray: 'rgb(233,237,244)',
+  darkBlue: 'rgb(30, 80, 180)',
 };

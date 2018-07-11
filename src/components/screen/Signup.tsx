@@ -18,6 +18,7 @@ import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
+import StatusBar from '@shared/StatusBar';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -100,6 +101,7 @@ class Screen extends Component<any, IState> {
   public render() {
     return (
       <View style={styles.container}>
+        <StatusBar isDarkContent={false}/>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContainer}

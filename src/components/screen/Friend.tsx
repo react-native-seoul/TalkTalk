@@ -17,6 +17,7 @@ import {
 import { ratio, colors, screenWidth } from '@utils/Styles';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
+import StatusBar from '@shared/StatusBar';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -120,6 +121,7 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <View style={styles.container}>
+        <StatusBar isDarkContent={false}/>
         <FlatList
           style={{
             alignSelf: 'stretch',
