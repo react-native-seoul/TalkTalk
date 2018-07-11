@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import { IC_BACK, IC_SMILE } from '@utils/Icons';
 
-import HeaderBack from '@shared/HeaderBack';
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { getString } from '@STRINGS';
 
@@ -25,8 +24,6 @@ const styles: any = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: statusBarHeight, // false to get height of android too.
-
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -94,6 +91,11 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
+
+  private static navigationOptions = {
+    title: getString('HELLO'),
+  };
+
   private keyboardDidShowListener: any;
   private keyboardDidHideListener: any;
 
@@ -134,10 +136,6 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <View style={styles.container}>
-        <HeaderBack
-          imgSrc={IC_BACK}
-          onBackPressed={this.goBack}
-        >{getString('HELLO')}</HeaderBack>
         <KeyboardAvoidingView
           behavior='padding'
           style={ styles.content }

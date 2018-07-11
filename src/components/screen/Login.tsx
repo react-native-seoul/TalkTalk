@@ -126,6 +126,10 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
+  private static navigationOptions = {
+    header: null,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
