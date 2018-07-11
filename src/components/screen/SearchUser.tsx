@@ -53,7 +53,7 @@ const styles: any = StyleSheet.create({
 
 class Screen extends Component<any, any> {
   private static navigationOptions = {
-    // title: getString('Search'),
+    title: getString('SEARCH_USER'),
   };
 
   private profileModal: any;
