@@ -60,6 +60,7 @@ interface ItemProps {
   style?: ViewStyle;
   item: IItem;
   onPress?: () => void;
+  onLongPress?: () => void;
 }
 
 class Shared extends Component<ItemProps, any> {
@@ -79,6 +80,7 @@ class Shared extends Component<ItemProps, any> {
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={this.props.onPress}
+          onLongPress={this.props.onLongPress}
         >
           <View style={this.props.style}>
             <Image style={styles.img} source={this.props.item.img ? this.props.item.img : IC_MASK}/>
