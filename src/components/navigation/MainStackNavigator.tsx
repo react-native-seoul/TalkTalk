@@ -41,11 +41,7 @@ export const commonNavigationOptions = {
 const navigatorConfig = {
   initialRouteName: 'Main',
   gesturesEnabled: true,
-  transitionConfig: () => ({ screenInterpolator:
-    appStore.rootNavigatorActionHorizontal
-      ? StackViewStyleInterpolator.forHorizontal
-      : StackViewStyleInterpolator.forVertical,
-  }),
+  transitionConfig: () => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal }),
   navigationOptions: commonNavigationOptions,
 };
 

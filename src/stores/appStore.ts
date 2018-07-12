@@ -11,11 +11,6 @@ import 'moment/locale/ja';
 
 class ObservableListStore {
   private _profileModal: any;
-  @observable private _rootNavigatorActionHorizontal: boolean;
-
-  constructor() {
-    this._rootNavigatorActionHorizontal = true;
-  }
 
   public get profileModal(): any {
     return this._profileModal;
@@ -23,14 +18,6 @@ class ObservableListStore {
 
   public set profileModal(value: any) {
     this._profileModal = value;
-  }
-
-  public get rootNavigatorActionHorizontal(): boolean {
-    return this._rootNavigatorActionHorizontal;
-  }
-
-  public set rootNavigatorActionHorizontal(value: boolean) {
-    this._rootNavigatorActionHorizontal = value;
   }
 }
 
