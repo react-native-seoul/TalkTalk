@@ -30,6 +30,8 @@ const styles: any = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
+    borderColor: 'white',
+    borderWidth: 1,
   },
   imgHeaderRight: {
     width: 60,
@@ -77,7 +79,7 @@ const Navigator = createMaterialTopTabNavigator(
         backgroundColor: 'white',
       },
       style: {
-        height: 48,
+        height: 40,
         justifyContent: 'center',
         backgroundColor: colors.dodgerBlue,
         borderTopColor: 'transparent', borderTopWidth: 0, elevation: 0,
