@@ -22,6 +22,7 @@ const StackNavigator = createStackNavigator(
   {
     initialRouteName: 'Login',
     navigationOptions: commonNavigationOptions,
+    transitionConfig: () => ({ screenInterpolator: StackViewStyleInterpolator.forHorizontal }),
   },
 );
 
