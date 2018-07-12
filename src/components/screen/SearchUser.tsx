@@ -14,12 +14,15 @@ import {
   View,
   FlatList,
   Platform,
+  Animated, 
 } from 'react-native';
 
 import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { IC_BACK, IC_SEARCH } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const styles: any = StyleSheet.create({
   container: {
@@ -29,24 +32,23 @@ const styles: any = StyleSheet.create({
     alignItems: 'center',
   },
   viewSearch: {
-    marginVertical: 20 * ratio,
     width: '100%',
     justifyContent: 'center',
+    backgroundColor: colors.dodgerBlue,
+    overflow: 'hidden',
   },
   imgSearch: {
-    width: 16 * ratio,
-    height: 16 * ratio,
-    position: 'absolute',
-    left: 36 * ratio,
+    position: 'absolute', 
+    width: 16,
+    height: 16,
+    left: 30, top: 18,
   },
   inputSearch: {
     backgroundColor: 'rgb(247,248,251)',
-    alignSelf: 'stretch',
-    marginHorizontal: 20 * ratio,
-    height: 40 * ratio,
-    paddingLeft: 44 * ratio,
-    paddingRight: 16 * ratio,
-    borderRadius: 4 * ratio,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: 4,
   },
 });
 
@@ -57,6 +59,7 @@ class Screen extends Component<any, any> {
 
   private profileModal: any;
   private searchTxt: string = '';
+  private scrollY: any = new Animated.Value(0);
 
   constructor(props) {
     super(props);
@@ -105,23 +108,39 @@ class Screen extends Component<any, any> {
   public render() {
     return (
       <View style={styles.container}>
-        <View style={styles.viewSearch}>
-          <TextInput
-            onChangeText={(text) => this.onTxtChanged(text)}
-            underlineColorAndroid='transparent' // android fix
-            autoCapitalize='none'
-            autoCorrect={false}
-            multiline={false}
-            // value={this.searchTxt}
-            style={styles.inputSearch}
-            onSubmitEditing={this.onSearch}
-            defaultValue={this.searchTxt}
-          />
-          <Image source={IC_SEARCH} style={styles.imgSearch}/>
-        </View>
-        <FlatList
+        <Animated.View style={[styles.viewSearch, 
+          {height: 50, transform: [{translateY: this.scrollY.interpolate({ 
+            inputRange: [-50, 0, 50, 100], 
+            outputRange: [0, 0, -50, -50],
+          })}],  
+          }]}>
+          <Animated.View style={{position: 'absolute', width: '100%', paddingHorizontal: 20, height: 50, 
+            opacity: this.scrollY.interpolate({ 
+            inputRange: [-50, 0, 50, 100], 
+            outputRange: [1, 1, 0, 0],
+          })}}>
+            <TextInput
+              onChangeText={(text) => this.onTxtChanged(text)}
+              underlineColorAndroid='transparent' // android fix
+              autoCapitalize='none'
+              autoCorrect={false}
+              multiline={false}
+              // value={this.searchTxt}
+              style={{width: '100%', height: 30, top: 10, backgroundColor: 'white', 
+                 borderRadius: 4, paddingLeft: 34, paddingRight: 10}}
+              onSubmitEditing={this.onSearch}
+              defaultValue={this.searchTxt}
+            />
+            <Image source={IC_SEARCH} style={styles.imgSearch}/>
+          </Animated.View>
+        </Animated.View>
+        <AnimatedFlatList
           style={{
-            alignSelf: 'stretch',
+            width: '100%', height: '100%', marginBottom: -50, 
+            transform: [{translateY: this.scrollY.interpolate({ 
+              inputRange: [-50, 0, 50, 100], 
+              outputRange: [0, 0, -50, -50],
+            })}],
           }}
           contentContainerStyle={
             this.state.users.length === 0
@@ -136,9 +155,18 @@ class Screen extends Component<any, any> {
           data={this.state.users}
           renderItem={this.renderItem}
           ListEmptyComponent={<EmptyListItem>{getString('NO_CONTENT')}</EmptyListItem>}
+          
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: this.scrollY}}}],
+            {useNativeDriver: true, listener: this.onScroll}, 
+          )}
         />
       </View>
     );
+  }
+
+  private onScroll = (e) => {
+    // console.log(e.nativeEvent.contentOffset.y);
   }
 
   private renderItem = ({ item }) => {
