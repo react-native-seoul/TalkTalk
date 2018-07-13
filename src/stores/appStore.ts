@@ -10,14 +10,13 @@ import 'moment/locale/ja';
 // import 'moment/locale/id';
 
 class ObservableListStore {
-  private _profileModal: any;
+  @observable private _friends: any = [];
 
-  public get profileModal(): any {
-    return this._profileModal;
+  public get friends(): any {
+    return this._friends;
   }
-
-  public set profileModal(value: any) {
-    this._profileModal = value;
+  public set friends(value: any) {
+    this._friends = value;
   }
 }
 

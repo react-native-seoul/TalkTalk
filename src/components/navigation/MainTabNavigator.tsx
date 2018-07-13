@@ -10,6 +10,7 @@ import {
   NavigationAction,
   createMaterialTopTabNavigator,
 } from 'react-navigation';
+import firebase from 'firebase';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { IC_MASK, IC_ADD } from '@utils/Icons';
@@ -18,6 +19,7 @@ import appStore from '@stores/appStore';
 
 import Friend from '@screen/Friend';
 import Message from '@screen/Message';
+import Setting from '@screen/Setting';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -34,8 +36,9 @@ const styles: any = StyleSheet.create({
     borderWidth: 1,
   },
   imgHeaderRight: {
-    width: 60,
-    height: 60,
+    width: 24,
+    height: 24,
+    right: 12,
     tintColor: 'white',
   },
   txt: {
@@ -53,6 +56,7 @@ const Navigator = createMaterialTopTabNavigator(
   {
     Friend: { screen: Friend },
     Message: { screen: Message },
+    Setting: { screen: Setting },
   },
   {
     navigationOptions: ({ navigation, screenProps }) => ({
@@ -67,6 +71,10 @@ const Navigator = createMaterialTopTabNavigator(
           case 'Message':
             return <Text style={[styles.txt, {opacity: focused ? 1 : 0.8}]}>
                 {getString('MESSAGE')}  <Text style={styles.txtSub}>8</Text>
+              </Text>;
+          case 'Setting':
+            return <Text style={[styles.txt, {opacity: focused ? 1 : 0.8}]}>
+                {'Setting'}
               </Text>;
         }
         return null;
@@ -95,7 +103,7 @@ export const MainTabNavigationOptions = ({navigation}) => ({
   headerLeft: 
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => navigation.navigate('ProfileUpdate')}
+      onPress={() => navigation.navigate('Profile', { user: firebase.auth().currentUser })}
     >
       <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
     </TouchableOpacity>,

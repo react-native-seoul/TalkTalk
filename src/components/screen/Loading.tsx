@@ -15,6 +15,9 @@ import { animateRotateLoop } from '@utils/Functions';
 import { getString } from '@STRINGS';
 
 import * as Animatable from 'react-native-animatable';
+import { db_snapshotFriends } from '@db/User';
+import { observer } from 'mobx-react';
+import appStore from '@stores/appStore';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -26,22 +29,30 @@ const styles: any = StyleSheet.create({
   },
 });
 
+@observer
 class Screen extends Component<any, any> {
   private spinValue: any = new Animated.Value(0);
   private spin: any = this.spinValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '1260deg'],
   });
+  private unsubscribe: any = null;
 
   constructor(props) {
     super(props);
 
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
+        if (this.unsubscribe) {
+          this.unsubscribe();
+          this.unsubscribe = null;
+        }
+        appStore.friends = [];
         this.props.navigation.navigate('AuthStackNavigator');
-        return;
+      } else {
+        this.unsubscribe = db_snapshotFriends((friends) => { appStore.friends = friends; });
+        this.props.navigation.navigate('MainStackNavigator');
       }
-      this.props.navigation.navigate('MainStackNavigator');
     });
   }
 

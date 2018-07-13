@@ -17,6 +17,11 @@ import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
 import TextInput from '@shared/TextInput';
 import Button from '@shared/Button';
+import { commonNavigationOptions, commonNavigationOptionsForModal } from '@navigation/NavigationOptions';
+import { createStackNavigator } from 'react-navigation';
+import { db_getUser, db_addfriend, db_unfriend } from '@db/User';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -68,11 +73,10 @@ const styles: any = StyleSheet.create({
   btnUpdate: {
     backgroundColor: colors.dodgerBlue,
     borderColor: colors.dodgerBlue,
-    borderRadius: 4 * ratio,
-    borderWidth: 1 * ratio,
-    width: 136 * ratio,
-    height: 60 * ratio,
-    marginLeft: 4 * ratio,
+    borderRadius: 4,
+    borderWidth: 1,
+    width: 136,
+    height: 60,
     shadowColor: colors.dodgerBlue,
     shadowOffset: {
       width: 0,
@@ -95,52 +99,38 @@ const styles: any = StyleSheet.create({
   },
 });
 
+@observer
 class Screen extends Component<any, any> {
   private static navigationOptions = {
-    title: getString('MY_PROFILE'),
+    title: 'Profile',
   };
 
   constructor(props) {
     super(props);
+
+    const { navigation } = props;
+    const { user } = navigation.state.params;
+
     this.state = {
       isUpdating: false,
-      displayName: '',
-      statusMsg: '',
-      photoURL: '',
+      displayName: user.displayName,
+      statusMsg: user.statusMsg,
+      photoURL: user.photoURL,
+      isMe: firebase.auth().currentUser.uid === user.uid, 
     };
   }
 
-  public componentDidMount() {
-    console.log('componentDidMount', 'ProfileUpdate', firebase.auth().currentUser);
-    const userId = firebase.auth().currentUser.uid;
-    if (USE_FIRESTORE) {
-      firebase.firestore().collection('users').doc(userId).get().then((doc) => {
-        if (doc.exists) {
-          const user = doc.data();
-          console.log('user');
-          console.log(user);
-          this.setState({
-            displayName: user.displayName,
-            email: user.email,
-            statusMsg: user.statusMsg,
-            photoURL: user.photoURL,
-          });
-        }
-      });
-      return;
-    }
-    firebase.database().ref('users').child(`/${userId}`).once('value').then((snapshot) => {
-      const user = snapshot.val();
-      this.setState({
-        displayName: user.displayName,
-        email: user.email,
-        statusMsg: user.statusMsg,
-        photoURL: user.photoURL,
-      });
-    });
+  public async componentDidMount() {
+    const { user } = this.props.navigation.state.params;
+    const user_db = await db_getUser(user.uid);
+    console.log('[Profile] user_db', user_db);
+    this.setState(user_db);
   }
 
   public render() {
+    const { user } = this.props.navigation.state.params;
+    const isFriend = toJS(appStore.friends).find((item) => item.uid === user.uid) ? true : false;
+
     return (
       <View style={styles.container}>
         <ScrollView
@@ -155,6 +145,7 @@ class Screen extends Component<any, any> {
               <Image source={IC_MASK} style={styles.img} />
             </TouchableOpacity>
             <TextInput
+              editable={this.state.isMe}
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('NAME')}
               txtHint={ getString('NAME') }
@@ -162,35 +153,52 @@ class Screen extends Component<any, any> {
               onTextChanged={ (text) => this.onTextChanged('DISPLAY_NAME', text)}
             />
             <TextInput
+              editable={this.state.isMe}
               style={{ marginTop: 24 * ratio }}
               txtLabel={getString('STATUS_MSG')}
               txtHint={ getString('STATUS_MSG') }
               txt={ this.state.statusMsg }
               onTextChanged={ (text) => this.onTextChanged('STATUS_MSG', text)}
             />
+            
             <View style={styles.btnWrapper}>
-              <Button
+              {/* <Button
                 onPress={this.onLogout}
                 style={styles.btnLogout}
                 textStyle={styles.txtLogout}
-              >{getString('LOGOUT')}</Button>
-              <Button
-                isLoading={this.state.isUpdating}
-                onPress={this.onUpdate}
-                style={styles.btnUpdate}
-                textStyle={styles.txtUpdate}
-              >{getString('UPDATE')}</Button>
+              >{getString('LOGOUT')}</Button> */}
+              {this.state.isMe && 
+                <Button
+                  isLoading={this.state.isUpdating}
+                  onPress={this.onUpdate}
+                  style={styles.btnUpdate}
+                  textStyle={styles.txtUpdate}
+                >{getString('UPDATE')}</Button>}
+              {!this.state.isMe && !isFriend &&
+                <Button
+                  isLoading={this.state.isUpdating}
+                  onPress={this.onAddFriend}
+                  style={styles.btnUpdate}
+                  textStyle={styles.txtUpdate}
+                >{getString('ADD_FRIEND')}</Button>}
+              {!this.state.isMe && isFriend &&
+                <Button
+                  isLoading={this.state.isUpdating}
+                  onPress={this.onRemoveFriend}
+                  style={styles.btnUpdate}
+                  textStyle={styles.txtUpdate}
+                >{getString('DELETE_FRIEND')}</Button>}
             </View>
           </View>
         </ScrollView>
       </View>
     );
   }
-
+/*
   private onLogout = async () => {
     console.log('onLogout');
     await firebase.auth().signOut();
-  }
+  }*/
 
   private onUpdate = () => {
     console.log('onUpdate');
@@ -200,14 +208,6 @@ class Screen extends Component<any, any> {
         userData.updateProfile({
           displayName: this.state.displayName,
           photoURL: '',
-        });
-
-        // realtime-database
-        firebase.database().ref('users').child(`${userData.uid}`).set({
-          displayName: this.state.displayName,
-          email: this.state.email,
-          photoURL: '',
-          statusMsg: this.state.statusMsg,
         });
 
         // firestore
@@ -221,6 +221,15 @@ class Screen extends Component<any, any> {
         this.setState({ isUpdating: false });
       }
     });
+  }
+
+  private onAddFriend = () => {
+    const { user } = this.props.navigation.state.params;
+    db_addfriend(user.uid);
+  }
+  private onRemoveFriend = () => {
+    const { user } = this.props.navigation.state.params;
+    db_unfriend(user.uid);
   }
 
   private onTextChanged = (type, text) => {
@@ -239,4 +248,9 @@ class Screen extends Component<any, any> {
   }
 }
 
-export default Screen;
+const navigatorConfig = {
+  navigationOptions: commonNavigationOptionsForModal, 
+};
+
+const RootNavigator = createStackNavigator({ Root: { screen: Screen } }, navigatorConfig);
+export default RootNavigator;

@@ -74,6 +74,7 @@ interface ItemProps {
   onTextChanged?: (text) => void;
   onSubmitEditing?: (text) => void;
   returnKeyType?: any;
+  editable?: boolean;
 }
 
 class Shared extends Component<ItemProps, any> {
@@ -86,6 +87,7 @@ class Shared extends Component<ItemProps, any> {
     txtLabel: '',
     txtHint: '',
     txt: '',
+    editable: true,
   };
 
   constructor(props) {
@@ -120,6 +122,7 @@ class Shared extends Component<ItemProps, any> {
           onSubmitEditing={this.props.onSubmitEditing}
           returnKeyType={this.props.returnKeyType}
           secureTextEntry={this.props.isPassword}
+          editable={this.props.editable}
         />
       </View>
     );

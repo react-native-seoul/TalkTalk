@@ -10,7 +10,7 @@ import Login from '@screen/Login';
 import Signup from '@screen/Signup';
 import FindPw from '@screen/FindPw';
 import NotFound from '@screen/NotFound';
-import { commonNavigationOptions } from '@navigation/MainStackNavigator';
+import { commonNavigationOptions } from '@navigation/NavigationOptions';
 
 const StackNavigator = createStackNavigator(
   {

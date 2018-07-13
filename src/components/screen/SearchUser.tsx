@@ -21,6 +21,7 @@ import { ratio, colors, statusBarHeight } from '@utils/Styles';
 import { IC_BACK, IC_SEARCH } from '@utils/Icons';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
+import { db_getAllUser } from '@db/User'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -60,6 +61,7 @@ class Screen extends Component<any, any> {
   private profileModal: any;
   private searchTxt: string = '';
   private scrollY: any = new Animated.Value(0);
+  private users: any = [];
 
   constructor(props) {
     super(props);
@@ -68,41 +70,10 @@ class Screen extends Component<any, any> {
     };
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     console.log('componentDidMount', 'SearchUser');
-    /**
-     * get all the users
-     */
-    if (USE_FIRESTORE) {
-      firebase.firestore().collection('users')
-      .orderBy('displayName', 'asc')
-      .get().then((snapshots) => {
-        const users = [];
-        snapshots.forEach((doc) => {
-          const user = doc.data();
-          user.id = doc.id;
-          if (user.email !== firebase.auth().currentUser.email) {
-            users.push(user);
-          }
-        });
-        this.setState({ users });
-      });
-      return;
-    }
-    firebase.database().ref('users')
-    .orderByChild('displayName')
-    .once('value')
-    .then((snapshots) => {
-      const users = [];
-      snapshots.forEach((doc) => {
-        const user = doc.val();
-        user.id = doc.key;
-        if (user.email !== firebase.auth().currentUser.email) {
-          users.push(user);
-        }
-      });
-      this.setState({ users });
-    });
+    this.users = await db_getAllUser();
+    this.setState({ users: this.users });
   }
 
   public render() {
@@ -179,55 +150,22 @@ class Screen extends Component<any, any> {
   }
 
   private onItemClick = (item) => {
-    console.log(item);
-    appStore.profileModal.setUser(item);
-    appStore.profileModal.showAddBtn(true);
-    appStore.profileModal.open();
+    // console.log(item);
+    this.props.navigation.navigate('Profile', { user: item });
   }
 
   private onTxtChanged = (txt) => {
     this.searchTxt = txt;
-    // this.setState({
-    //   searchTxt: txt,
-    // });
+    this.onSearch();
   }
 
   private onSearch = () => {
     console.log('onSearch: ' + this.searchTxt);
-    if (USE_FIRESTORE) {
-      firebase.firestore().collection('users')
-      .where('displayName', '>=', this.searchTxt)
-      .where('displayName', '<', `${this.searchTxt}\uf8ff`)
-      .get().then((snapshots) => {
-        const users = [];
-        snapshots.forEach((doc) => {
-          const user = doc.data();
-          user.id = doc.id;
-          console.log(user);
-          if (user.email !== firebase.auth().currentUser.email) {
-            users.push(user);
-          }
-        });
-        this.setState({ users });
-      });
-      return;
+    if (this.searchTxt === '') {
+      this.setState({users: this.users});
+    } else {
+      this.setState({users: this.users.filter((item) => item.displayName.includes(this.searchTxt))});
     }
-    firebase.database().ref('users')
-    .orderByChild('displayName')
-    .startAt(this.searchTxt)
-    .endAt(`${this.searchTxt}\uf8ff`)
-    .once('value')
-    .then((snapshots) => {
-      const users = [];
-      snapshots.forEach((doc) => {
-        const user = doc.val();
-        user.id = doc.key;
-        if (user.email !== firebase.auth().currentUser.email) {
-          users.push(user);
-        }
-      });
-      this.setState({ users });
-    });
   }
 
   private onChat = () => {

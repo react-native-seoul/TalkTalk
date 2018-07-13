@@ -21,6 +21,7 @@ import StatusBar from '@shared/StatusBar';
 import Swipeout from 'react-native-swipeout';
 import ActionSheet from 'react-native-actionsheet';
 import { db_unfriend } from '@db/User';
+import { observer } from 'mobx-react';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -32,6 +33,7 @@ const styles: any = StyleSheet.create({
   },
 });
 
+@observer
 class Screen extends Component<any, any> {
   private actionSheet: any = null;
   private selectedUser: any = null;
@@ -39,90 +41,8 @@ class Screen extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      friends: [],
       openedContextMenuIndex: -1,
     };
-  }
-
-  public componentDidMount() {
-    /**
-     * get all friends
-     */
-    const userData = firebase.auth().currentUser;
-    if (USE_FIRESTORE) {
-      firebase.firestore().collection('users')
-      .doc(`${userData.uid}`).collection('friends')
-      .onSnapshot((snapshots) => {
-        const friends = this.state.friends;
-        if (snapshots.size === 0) {
-          this.setState({ friends: [] });
-          return;
-        }
-        snapshots.docChanges().forEach((change) => {
-          let user = change.doc.data();
-          console.log('user', user);
-          user.friendId = change.doc.id;
-          firebase.firestore().collection('users').doc(user.id).onSnapshot((friendSnap) => {
-            if (change.type === 'added') {
-              user = { ...user, ...friendSnap.data() };
-              friends.push(user);
-              if (snapshots.size === friends.length) {
-                this.setState({ friends });
-                return;
-              }
-            }
-
-            if (change.type === 'removed') {
-              const index = this.state.friends.findIndex((el) => {
-                return el.friendId === user.friendId;
-              });
-              console.log(index);
-              this.setState({
-                friends: update(
-                  this.state.friends, {
-                    $splice: [ [ index, 1 ] ],
-                  },
-                ),
-              });
-            }
-
-            // if (change.type === 'modified') {
-            //   const index = this.state.friends.findIndex((el) => {
-            //     return el.friendId === user.friendId;
-            //   });
-            //   this.setState({
-            //     friends: update(
-            //       this.state.friends, {
-            //         [index]: user,
-            //       },
-            //     ),
-            //   });
-            // }
-          });
-        });
-      });
-      return;
-    }
-    firebase.database().ref(`users/${userData.uid}`).child('friends')
-    .on('value', (snapshots) => {
-      const friends = [];
-      if (snapshots.numChildren() === 0) {
-        this.setState({ friends });
-        return;
-      }
-      snapshots.forEach((doc) => {
-        let user = doc.val();
-        user.friendId = doc.key;
-        firebase.database().ref(`users/${user.id}`)
-        .on('value', (friendSnap) => {
-          user = { ...user, ...friendSnap.val() };
-          friends.push(user);
-          if (snapshots.numChildren() === friends.length) {
-            this.setState({ friends });
-          }
-        });
-      });
-    });
   }
 
   public render() {
@@ -134,7 +54,7 @@ class Screen extends Component<any, any> {
             alignSelf: 'stretch',
           }}
           contentContainerStyle={
-            this.state.friends.length === 0
+            appStore.friends.length === 0
               ? {
                 flex: 1,
                 alignItems: 'center',
@@ -143,7 +63,7 @@ class Screen extends Component<any, any> {
               : null
           }
           keyExtractor={(item, index) => index.toString()}
-          data={this.state.friends}
+          data={appStore.friends}
           renderItem={this.renderItem}
           ListEmptyComponent={<EmptyListItem>{getString('NO_CONTENT')}</EmptyListItem>}
         />
@@ -159,7 +79,7 @@ class Screen extends Component<any, any> {
   }
 
   private onPressUnfriend = (user) => {
-    db_unfriend(user);
+    db_unfriend(user.uid);
   }
 
   private showActionSheet = (user) => {
@@ -202,10 +122,8 @@ class Screen extends Component<any, any> {
     }
   }
 
-  private onItemClick = async (item) => {
-    appStore.profileModal.setUser(item);
-    appStore.profileModal.showAddBtn(false);
-    appStore.profileModal.open();
+  private onItemClick = (item) => {
+    this.props.navigation.navigate('Profile', { user: item });
   }
 }
 

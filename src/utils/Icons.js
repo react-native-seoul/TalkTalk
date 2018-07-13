@@ -5,3 +5,4 @@ export const IC_ADD = require('../../assets/icons/btnAdd.png');
 export const IC_PIC = require('../../assets/icons/pictoGallery.png');
 export const IC_SEARCH = require('../../assets/icons/picSearch.png');
 export const IC_SMILE = require('../../assets/icons/icSmile.png');
+export const IC_DISMISS = require('../../assets/icons/btnClose.png');
