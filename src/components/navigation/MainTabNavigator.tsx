@@ -98,20 +98,33 @@ const Navigator = createMaterialTopTabNavigator(
 
 export default Navigator;
 
-export const MainTabNavigationOptions = ({navigation}) => ({
-  title: 'Talk Talk',
-  headerLeft: 
-    <TouchableOpacity
-      activeOpacity={0.5}
-      onPress={() => navigation.navigate('Profile', { user: firebase.auth().currentUser })}
-    >
-      <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
-    </TouchableOpacity>,
-  headerRight:
-    <TouchableOpacity
-      activeOpacity={0.5}
-      onPress={() => navigation.navigate('SearchUser')}
-    >
-      <Image style={styles.imgHeaderRight} source={IC_ADD}/>
-    </TouchableOpacity>,
-});
+export const MainTabNavigationOptions = ({navigation}) => {
+  console.log('check route name', navigation.state.routes[navigation.state.index].routeName);
+  let color;
+  switch (navigation.state.index) {
+    case 0: color = 'red'; break;
+    case 1: color = 'green'; break;
+    case 2: color = 'blue'; break;
+    default: color = 'black'; break;
+  }
+
+  const title = 'Talk Talk';
+  return {
+    title,
+    headerStyle: {backgroundColor: color},
+    headerLeft: 
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('Profile', { user: firebase.auth().currentUser })}
+      >
+        <Image style={styles.imgHeaderLeft} source={IC_MASK}/>
+      </TouchableOpacity>,
+    headerRight:
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('SearchUser')}
+      >
+        <Image style={styles.imgHeaderRight} source={IC_ADD}/>
+      </TouchableOpacity>,
+  };
+};
