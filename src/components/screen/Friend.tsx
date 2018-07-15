@@ -18,9 +18,6 @@ import { ratio, colors, screenWidth } from '@utils/Styles';
 import { getString } from '@STRINGS';
 import appStore from '@stores/appStore';
 import StatusBar from '@shared/StatusBar';
-import Swipeout from 'react-native-swipeout';
-import ActionSheet from 'react-native-actionsheet';
-import { db_unfriend } from '@db/User';
 
 const styles: any = StyleSheet.create({
   container: {
@@ -33,14 +30,10 @@ const styles: any = StyleSheet.create({
 });
 
 class Screen extends Component<any, any> {
-  private actionSheet: any = null;
-  private selectedUser: any = null;
-
   constructor(props) {
     super(props);
     this.state = {
       friends: [],
-      openedContextMenuIndex: -1,
     };
   }
 
@@ -147,59 +140,17 @@ class Screen extends Component<any, any> {
           renderItem={this.renderItem}
           ListEmptyComponent={<EmptyListItem>{getString('NO_CONTENT')}</EmptyListItem>}
         />
-        {Platform.OS === 'android' && <ActionSheet
-          ref={(comp) => this.actionSheet = comp}
-          options={['Unfriend', 'Cancel']}
-          cancelButtonIndex={1}
-          destructiveButtonIndex={0}
-          onPress={this.onPressActionSheetButton}
-        />}
       </View>
     );
   }
 
-  private onPressUnfriend = (user) => {
-    db_unfriend(user);
-  }
-
-  private showActionSheet = (user) => {
-    console.log('showActionSheet');
-    this.selectedUser = user;
-    if (this.actionSheet) { this.actionSheet.show(); }
-  }
-
-  private onPressActionSheetButton = (index) => {
-    if (index === 0) {
-      this.onPressUnfriend(this.selectedUser);
-    }
-  }
-
-  private onOpenContextMenu = (sectionID, rowID) => {
-    this.setState({openedContextMenuIndex: rowID});
-  }
-
-  private renderItem = ({ item, index }) => {
-    const listItem = 
+  private renderItem = ({ item }) => {
+    return (
       <UserListItem
         item={item}
         onPress={() => this.onItemClick(item)}
-        onLongPress={Platform.select({ios: null, android: () => this.showActionSheet(item)})}
-      />;
-
-    if (Platform.OS === 'ios') {
-      return (
-        <Swipeout 
-          rowID={index}
-          close={index !== this.state.openedContextMenuIndex}
-          autoClose={true}
-          onOpen={this.onOpenContextMenu}
-          right={[{text: 'Unfriend', backgroundColor: 'red', onPress: () => this.onPressUnfriend(item)}]}>
-          {listItem}
-        </Swipeout>
-      );
-    } else {
-      return listItem;
-    }
+      />
+    );
   }
 
   private onItemClick = async (item) => {

@@ -73,7 +73,7 @@ const Navigator = createMaterialTopTabNavigator(
       },
     }),
     animationEnabled: true,
-    swipeEnabled: Platform.select({android: true, ios: false}),
+    swipeEnabled: true,
     tabBarOptions: {
       indicatorStyle: {
         backgroundColor: 'white',

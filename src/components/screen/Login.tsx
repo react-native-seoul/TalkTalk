@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import { ratio, colors } from '@utils/Styles';
-import { strings } from '@STRINGS';
 import { IC_ICON } from '@utils/Icons';
 import { getString } from '@STRINGS';
 
