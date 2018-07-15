@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StatusBar,
   Platform,
@@ -6,12 +6,28 @@ import {
 } from 'react-native';
 import { colors } from '@utils/Styles';
 
-const Shared = ({isDarkContent}) => (
-  <StatusBar 
-    barStyle={Platform.select({
-      ios: isDarkContent ? 'dark-content' : 'light-content', 
-      android: 'light-content',
-    })}
-    backgroundColor={colors.darkBlue}/>
-);
+interface IProps {
+  isDarkContent: boolean;
+}
+
+class Shared extends Component<IProps, any> {
+  private static defaultProps: Partial<IProps> = {
+    isDarkContent: false,
+  };
+
+  public render() {
+    const statusColor: StatusBarStyle = Platform.OS === 'android'
+      ? 'default'
+        : this.props.isDarkContent
+          ? 'dark-content'
+          : 'light-content';
+    return (
+      <StatusBar
+        barStyle={statusColor}
+        backgroundColor={colors.darkBlue}
+      />
+    );
+  }
+}
+
 export default Shared;
