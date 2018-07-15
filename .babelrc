@@ -16,8 +16,8 @@
         "@BaseStyles": "./src/BaseStyles",
         "@assets": "./assets",
         "@shared": "./src/components/shared",
-        "@app": "./src/app",
-        "@db": "./src/db"
+        "@db": "./src/db",
+        "@app": "./src/app"
       }
     }]
   ]

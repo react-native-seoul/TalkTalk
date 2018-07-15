@@ -36,6 +36,7 @@
       "@config": ["./config"],
       "@assets/*": ["./assets/*"],
       "@shared/*": ["./src/components/shared/*"],
+      "@db/*": ["./src/db/*"],
       "@app": ["./src/app"]
     }
   },
