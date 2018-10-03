@@ -186,10 +186,11 @@ class Screen extends Component<any, any> {
   }
 
   private onTxtChanged = (txt) => {
-    this.searchTxt = txt;
-    // this.setState({
-    //   searchTxt: txt,
-    // });
+    // this.searchTxt = txt;
+    console.log(`onTxtChanged: ${txt}`);
+    this.setState({
+      searchTxt: txt,
+    });
   }
 
   private onSearch = () => {
